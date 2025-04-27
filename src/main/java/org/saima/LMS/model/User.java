@@ -3,7 +3,6 @@ package org.saima.LMS.model;
 import java.time.LocalDateTime;
 
 import org.saima.LMS.constants.Role;
-import org.springframework.data.annotation.Id;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -13,6 +12,7 @@ import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
@@ -26,7 +26,7 @@ import lombok.Setter;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "T_USERS")
+@Table(name = "T_USER")
 public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -45,8 +45,6 @@ public class User {
 
 	private String name;
 	private String phoneNumber;
-	private String gender;
-	private String image;
 
 	@Column(name = "created_at")
 	private LocalDateTime createdAt;
@@ -54,15 +52,13 @@ public class User {
 	@Column(name = "updated_at")
 	private LocalDateTime updatedAt;
 
-	public User(String email, String password, Role role, String name, String phoneNumber, String gender,
-			String image) {
+	public User(String email, String password, Role role, String name, String phoneNumber) {
 		this.email = email;
 		this.password = password;
 		this.role = role;
 		this.name = name;
 		this.phoneNumber = phoneNumber;
-		this.gender = gender;
-		this.image = image;
+
 	}
 
 	@PrePersist

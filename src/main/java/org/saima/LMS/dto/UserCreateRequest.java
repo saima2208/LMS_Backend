@@ -8,7 +8,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 public record UserCreateRequest(
-		@NotBlank(message = "Username cannot be blank") @Size(min = 3, max = 20, message = "Username must be between 3 and 20 characters") String username,
+//		@NotBlank(message = "Username cannot be blank") @Size(min = 3, max = 20, message = "Username must be between 3 and 20 characters") String username,
 
 		@NotBlank(message = "Email cannot be blank") @Email(message = "Email should be valid") String email,
 
@@ -16,5 +16,5 @@ public record UserCreateRequest(
 
 		@NotNull(message = "Role cannot be null") Role role,
 
-		String firstName, String lastName, String phoneNumber) {
+		String name, String phoneNumber) {
 }

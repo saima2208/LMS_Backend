@@ -13,8 +13,9 @@ public class UserResponse {
 	private Long id;
 	private String email;
 	private Role role;
-	private String firstName;
-	private String lastName;
+//	private String firstName;
+//	private String lastName;
+	private String name;
 	private String phoneNumber;
 	private LocalDateTime createdAt;
 	private LocalDateTime updatedAt;

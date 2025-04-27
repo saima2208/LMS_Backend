@@ -59,8 +59,6 @@ public class UserService {
 		user.setName(userDetails.getName());
 
 		user.setPhoneNumber(userDetails.getPhoneNumber());
-		user.setGender(userDetails.getGender());
-		user.setImage(userDetails.getImage());
 
 		// Only update email if it has changed and is not already in use
 		if (!user.getEmail().equals(userDetails.getEmail())) {
