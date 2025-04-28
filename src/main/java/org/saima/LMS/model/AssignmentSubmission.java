@@ -2,6 +2,8 @@ package org.saima.LMS.model;
 
 import java.time.LocalDateTime;
 
+import org.saima.LMS.constants.SubmissionStatus;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;

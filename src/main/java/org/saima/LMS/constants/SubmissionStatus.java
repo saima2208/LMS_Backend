@@ -1,4 +1,4 @@
-package org.saima.LMS.model;
+package org.saima.LMS.constants;
 
 public enum SubmissionStatus {
 	NOT_SUBMITTED, // The student has not submitted the assignment
