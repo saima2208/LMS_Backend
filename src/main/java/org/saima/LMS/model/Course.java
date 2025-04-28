@@ -2,14 +2,7 @@ package org.saima.LMS.model;
 
 import java.time.LocalDateTime;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -29,29 +22,33 @@ public class Course {
 	@OneToOne
 	@JoinColumn(name = "teacher", nullable = false, referencedColumnName = "id")
 	private User teacher;
-
-	private Long total_lesson;
+	
+	@OneToMany
+	@JoinColumn(name = "lesson", nullable = false, referencedColumnName = "lesson_id")
+	private Lessons lesson;
 
 	@Column(nullable = false, name = "TITLE")
 	private String name;
 
-	private String description;
+	
 	private String price;
 	private LocalDateTime startDate;
 	private Long duration;
-	private String image;
+	private String description;
 
-	public Course(User teacher, Long total_lesson, String name, String description, String price, Long duration,
-			LocalDateTime startDate, String image) {
+
+	public Course(User teacher, Lessons lesson, String name, String price, Long duration,
+			LocalDateTime startDate , String description) {
 		this.teacher = teacher;
 		this.name = name;
-		this.total_lesson = total_lesson;
-		this.description = description;
+		this.lesson = lesson;
+		
 
 		this.startDate = startDate;
 		this.price = price;
 		this.duration = duration;
-		this.image = image;
+		this.description = description;
+
 
 	}
 

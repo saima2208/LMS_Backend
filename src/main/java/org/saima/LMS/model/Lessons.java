@@ -25,20 +25,20 @@ public class Lessons {
 	private Long lesson_id;
 
 	@ManyToOne
-	@JoinColumn(name = "course_id", referencedColumnName = "id", nullable = false) // course_id as a foreign key
+	@JoinColumn(name = "course_id", referencedColumnName = "course_id", nullable = false) 
 	private Course course;
 
 	@Column(unique = true, nullable = false, name = "TITLE")
 	private String topic;
 	private String description;
-	private String videoUrl;
 
-	public Lessons(Course course, String topic, String description, String videoUrl) {
+
+	public Lessons(Course course, String topic, String description) {
 
 		this.course = course;
 		this.topic = topic;
 		this.description = description;
-		this.videoUrl = videoUrl;
+
 	}
 
 }
