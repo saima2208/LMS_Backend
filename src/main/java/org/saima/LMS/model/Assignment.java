@@ -2,17 +2,9 @@ package org.saima.LMS.model;
 
 import java.time.LocalDateTime;
 
+import jakarta.persistence.*;
 import org.saima.LMS.constants.AssignmentStatus;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -35,6 +27,8 @@ public class Assignment {
 	private Course course;
 
 	private String title;
+
+	@Lob
 	private String description;
 
 	// The due date of the assignment

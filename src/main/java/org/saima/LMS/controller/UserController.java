@@ -31,7 +31,7 @@ import org.springframework.web.bind.annotation.RestController;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/api/user")
+@RequestMapping("/api/users")
 @CrossOrigin(origins = "*")
 public class UserController {
 
@@ -69,8 +69,8 @@ public class UserController {
 	@PostMapping
 	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<UserResponse> createUser(@Valid @RequestBody UserCreateRequest userCreateRequest) {
-		User user = new User(userCreateRequest.email(), userCreateRequest.password(), userCreateRequest.role(),
-				userCreateRequest.name(), userCreateRequest.phoneNumber());
+		User user = new User(userCreateRequest.name(),userCreateRequest.email(), userCreateRequest.password(), userCreateRequest.role(),
+				userCreateRequest.fatherName(),userCreateRequest.motherName(),userCreateRequest.phone());
 
 		User createdUser = userService.createUser(user);
 		return ResponseEntity.status(HttpStatus.CREATED).body(convertToDTO(createdUser));
@@ -85,7 +85,7 @@ public class UserController {
 			userDetails.setName(userUpdateRequest.name());
 
 			userDetails.setEmail(userUpdateRequest.email());
-			userDetails.setPhoneNumber(userUpdateRequest.phoneNumber());
+			userDetails.setPhone(userUpdateRequest.phone());
 
 			// Only admin can update roles
 			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -102,9 +102,9 @@ public class UserController {
 
 	@DeleteMapping("/{id}")
 	@PreAuthorize("hasRole('ADMIN')")
-	public ResponseEntity<?> deleteUser(@PathVariable Long id) {
+	public ResponseEntity<?> deleteUser(@PathVariable Long user_id) {
 		try {
-			userService.deleteUser(id);
+			userService.deleteUser(user_id);
 			return ResponseEntity.ok().build();
 		} catch (RuntimeException e) {
 			return ResponseEntity.notFound().build();
@@ -129,7 +129,7 @@ public class UserController {
 				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
 			}
 
-			userService.changePassword(currentUser.getId(), request.currentPassword(), request.newPassword());
+			userService.changePassword(currentUser.getUser_Id(), request.currentPassword(), request.newPassword());
 
 			return ResponseEntity.ok().build();
 		} catch (RuntimeException e) {
@@ -140,14 +140,15 @@ public class UserController {
 	// Helper method to convert User entity to UserDTO
 	private UserResponse convertToDTO(User user) {
 		UserResponse dto = new UserResponse();
-		dto.setId(user.getId());
+		dto.setUser_id(user.getUser_Id());
+		dto.setName(user.getName());
 		dto.setEmail(user.getEmail());
 		dto.setRole(user.getRole());
-		dto.setName(user.getName());
 
-		dto.setPhoneNumber(user.getPhoneNumber());
-		dto.setCreatedAt(user.getCreatedAt());
-		dto.setUpdatedAt(user.getUpdatedAt());
+
+		dto.setPhone(user.getPhone());
+//		dto.setCreatedAt(user.getCreatedAt());
+//		dto.setUpdatedAt(user.getUpdatedAt());
 		return dto;
 	}
 }

@@ -26,7 +26,7 @@ public record CustomUserDetails(User user) implements UserDetails {
 	}
 
 	public Long getId() {
-		return user.getId();
+		return user.getUser_Id();
 	}
 
 	public String getEmail() {

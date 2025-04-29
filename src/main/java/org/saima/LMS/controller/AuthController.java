@@ -49,21 +49,23 @@ public class AuthController {
 	@PostMapping("/register")
 	public ResponseEntity<?> registerUser(@Valid @RequestBody RegisterRequest registerRequest) {
 		try {
-			User user = new User(registerRequest.email(), registerRequest.password(), registerRequest.role(),
-					registerRequest.name(), registerRequest.phoneNumber());
+			User user = new User(registerRequest.name(),registerRequest.email(), registerRequest.password(), registerRequest.role(),
+					registerRequest.fatherName(),registerRequest.motherName(), registerRequest.phone());
 
 			User savedUser = userService.createUser(user);
 
 			// Create DTO to return (exclude sensitive info)
 			UserResponse userResponse = new UserResponse();
-			userResponse.setId(savedUser.getId());
+			userResponse.setUser_id(savedUser.getUser_Id());
+			userResponse.setName(savedUser.getName());
 			userResponse.setEmail(savedUser.getEmail());
 			userResponse.setRole(savedUser.getRole());
-			userResponse.setName(savedUser.getName());
+			userResponse.setFatherName(savedUser.getFatherName());
+			userResponse.setMotherName(savedUser.getMotherName());
+			userResponse.setPhone(savedUser.getPhone());
 
-			userResponse.setPhoneNumber(savedUser.getPhoneNumber());
-			userResponse.setCreatedAt(savedUser.getCreatedAt());
-			userResponse.setUpdatedAt(savedUser.getUpdatedAt());
+//			userResponse.setCreatedAt(savedUser.getCreatedAt());
+//			userResponse.setUpdatedAt(savedUser.getUpdatedAt());
 
 			return ResponseEntity.status(HttpStatus.CREATED).body(userResponse);
 		} catch (RuntimeException e) {
@@ -92,10 +94,11 @@ public class AuthController {
 
 			// Add user information
 			Map<String, Object> userData = new HashMap<>();
-			userData.put("id", user.getId());
+			userData.put("id", user.getUser_Id());
+			userData.put("name", user.getName());
 			userData.put("email", user.getEmail());
 			userData.put("role", user.getRole());
-			userData.put("name", user.getName());
+
 
 			responseData.put("user", userData);
 
@@ -119,10 +122,11 @@ public class AuthController {
 			User user = customUserDetails.user();
 
 			UserResponse userResponse = new UserResponse();
-			userResponse.setId(user.getId());
+			userResponse.setUser_id(user.getUser_Id());
+			userResponse.setName(user.getName());
 			userResponse.setEmail(user.getEmail());
 			userResponse.setRole(user.getRole());
-			userResponse.setName(user.getName());
+
 
 			return ResponseEntity.ok(userResponse);
 		}

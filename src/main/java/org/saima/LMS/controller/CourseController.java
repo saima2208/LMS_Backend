@@ -1,5 +1,8 @@
 package org.saima.LMS.controller;
 
+
+
+
 import org.saima.LMS.model.Course;
 import org.saima.LMS.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,52 +15,40 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/courses")
 public class CourseController {
-    private final CourseService courseService;
 
     @Autowired
-    public CourseController(CourseService courseService) {
-        this.courseService = courseService;
+    private CourseService courseService;
+
+    // Create a new course
+    @PostMapping
+    public ResponseEntity<Course> createCourse(@RequestBody Course course) {
+        return new ResponseEntity<>(courseService.createCourse(course), HttpStatus.CREATED);
     }
 
+    // Retrieve all courses
     @GetMapping
-    public List<Course> getAllCourses() {
-        return courseService.getAllCourses();
+    public ResponseEntity<List<Course>> getAllCourses() {
+        return new ResponseEntity<>(courseService.getAllCourses(), HttpStatus.OK);
     }
 
+    // Retrieve a course by ID
     @GetMapping("/{id}")
     public ResponseEntity<Course> getCourseById(@PathVariable Long id) {
         return courseService.getCourseById(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+                .map(course -> new ResponseEntity<>(course, HttpStatus.OK))
+                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    @PostMapping
-    public ResponseEntity<Course> createCourse(@RequestBody Course course) {
-        Course createdCourse = courseService.createCourse(course);
-        return ResponseEntity.status(HttpStatus.CREATED).body(createdCourse);
+    // Update a course
+    @PutMapping("/{id}")
+    public ResponseEntity<Course> updateCourse(@PathVariable Long id, @RequestBody Course courseDetails) {
+        return new ResponseEntity<>(courseService.updateCourse(id, courseDetails), HttpStatus.OK);
     }
 
-//    @PutMapping("/{id}")
-//    public ResponseEntity<Course> updateCourse(@PathVariable Long id, @RequestBody Course updatedCourse) {
-//        try {
-//            Course course = courseService.updateCourse(id, updatedCourse);
-//            return ResponseEntity.ok(course);
-//        } catch (ResourceNotFoundException e) {
-//            return ResponseEntity.notFound().build();
-//        }
-//    }
-
+    // Delete a course
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteCourse(@PathVariable Long id) {
         courseService.deleteCourse(id);
-        return ResponseEntity.noContent().build();
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
-
-    @PutMapping("/{id}")
-    public Course updateTeacher(@PathVariable Long id, @RequestBody Course course) {
-
-        return courseService.updateCourse(id,course);
-    }
-
 }
-

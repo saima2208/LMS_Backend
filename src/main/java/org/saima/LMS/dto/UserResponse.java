@@ -10,13 +10,15 @@ import lombok.Setter;
 @Getter
 @Setter
 public class UserResponse {
-	private Long id;
+	private Long user_id;
+	private String name;
 	private String email;
 	private Role role;
-//	private String firstName;
-//	private String lastName;
-	private String name;
-	private String phoneNumber;
-	private LocalDateTime createdAt;
-	private LocalDateTime updatedAt;
+
+	private String fatherName;
+	private String motherName;
+
+	private String phone;
+//	private LocalDateTime createdAt;
+//	private LocalDateTime updatedAt;
 }

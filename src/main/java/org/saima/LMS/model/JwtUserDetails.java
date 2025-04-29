@@ -11,14 +11,14 @@ import lombok.Getter;
 
 @Getter
 public class JwtUserDetails implements UserDetails {
-	private final Long id;
+	private final Long user_id;
 	private final String username;
 	private final String email;
 	private final String role;
 	private final Collection<? extends GrantedAuthority> authorities;
 
-	public JwtUserDetails(Long id, String username, String email, String role) {
-		this.id = id;
+	public JwtUserDetails(Long user_id, String username, String email, String role) {
+		this.user_id = user_id;
 		this.username = username;
 		this.email = email;
 		this.role = role;

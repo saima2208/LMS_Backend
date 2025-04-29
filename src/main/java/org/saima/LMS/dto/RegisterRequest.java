@@ -14,5 +14,5 @@ public record RegisterRequest(
 
 		@ValidRole(message = "Role must be valid") Role role,
 
-		String name, String phoneNumber) {
+		String name,String fatherName,String motherName, String phone) {
 }

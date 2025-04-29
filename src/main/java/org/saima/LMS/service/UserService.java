@@ -51,14 +51,14 @@ public class UserService {
 	}
 
 	@Transactional
-	public User updateUser(Long id, User userDetails) {
-		User user = userRepository.findById(id)
-				.orElseThrow(() -> new RuntimeException("User not found with id: " + id));
+	public User updateUser(Long user_id, User userDetails) {
+		User user = userRepository.findById(user_id)
+				.orElseThrow(() -> new RuntimeException("User not found with id: " + user_id));
 
 		// Update fields
 		user.setName(userDetails.getName());
 
-		user.setPhoneNumber(userDetails.getPhoneNumber());
+		user.setPhone(userDetails.getPhone());
 
 		// Only update email if it has changed and is not already in use
 		if (!user.getEmail().equals(userDetails.getEmail())) {
@@ -82,12 +82,12 @@ public class UserService {
 	}
 
 	@Transactional
-	public void deleteUser(Long id) {
-		if (!userRepository.existsById(id)) {
-			throw new RuntimeException("User not found with id: " + id);
+	public void deleteUser(Long user_id) {
+		if (!userRepository.existsById(user_id)) {
+			throw new RuntimeException("User not found with id: " + user_id);
 		}
 
-		userRepository.deleteById(id);
+		userRepository.deleteById(user_id);
 	}
 
 	public User getCurrentUser(Authentication authentication) {
