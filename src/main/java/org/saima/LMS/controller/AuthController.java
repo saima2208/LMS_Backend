@@ -32,7 +32,7 @@ import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/auth")
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "")
 public class AuthController {
 
 	private final AuthenticationManager authenticationManager;
@@ -49,8 +49,9 @@ public class AuthController {
 	@PostMapping("/register")
 	public ResponseEntity<?> registerUser(@Valid @RequestBody RegisterRequest registerRequest) {
 		try {
-			User user = new User(registerRequest.name(),registerRequest.email(), registerRequest.password(), registerRequest.role(),
-					registerRequest.fatherName(),registerRequest.motherName(), registerRequest.phone());
+			User user = new User(registerRequest.name(), registerRequest.email(), registerRequest.password(),
+					registerRequest.role(), registerRequest.fatherName(), registerRequest.motherName(),
+					registerRequest.phone());
 
 			User savedUser = userService.createUser(user);
 
@@ -99,7 +100,6 @@ public class AuthController {
 			userData.put("email", user.getEmail());
 			userData.put("role", user.getRole());
 
-
 			responseData.put("user", userData);
 
 			return ResponseEntity.ok(responseData);
@@ -126,7 +126,6 @@ public class AuthController {
 			userResponse.setName(user.getName());
 			userResponse.setEmail(user.getEmail());
 			userResponse.setRole(user.getRole());
-
 
 			return ResponseEntity.ok(userResponse);
 		}

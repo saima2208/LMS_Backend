@@ -36,7 +36,7 @@ public class Course {
 	private LocalDateTime startDate;
 	private Long duration;
 
-	@Lob
+
 	private String description;
 
 
