@@ -12,5 +12,6 @@ import java.util.List;
 public interface CourseRepository extends JpaRepository<Course, Long> {
 //    List<Course> findByTeacher(User teacher);
 //   List<Course> findByLesson(Lesson lesson);
+	 boolean existsByName(String name);
 }
 

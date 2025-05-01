@@ -9,6 +9,8 @@ import lombok.Setter;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import org.saima.LMS.annotation.UniqueCourseName;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -21,6 +23,7 @@ public class CourseDTO {
     private List<Long> lessonIds;
 
     @NotNull(message = "Course title cannot be null")
+    @UniqueCourseName // Custom unique validation
     private String name;
 
     private String price;

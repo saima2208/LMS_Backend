@@ -28,7 +28,7 @@ public class Course {
 	private List<Lesson> lessons;
 
 
-	@Column(nullable = false, name = "TITLE")
+	@Column(nullable = false, unique = true, name = "TITLE")
 	private String name;
 
 
