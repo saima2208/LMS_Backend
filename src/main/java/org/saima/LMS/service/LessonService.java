@@ -1,53 +1,44 @@
-//package org.saima.LMS.service;
-//
-//import org.saima.LMS.model.Lesson;
-//import org.saima.LMS.model.Course;
-//import org.saima.LMS.repository.LessonRepository;
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.stereotype.Service;
-//
-//import java.util.List;
-//import java.util.Optional;
-//
-//@Service
-//public class LessonService {
-//
-//    @Autowired
-//    private LessonRepository lessonRepository;
-//
-//    // Create a new lesson
-//    public Lesson createLesson(Lesson lesson) {
-//        return lessonRepository.save(lesson);
-//    }
-//
-//    // Retrieve all lessons
-//    public List<Lesson> getAllLessons() {
-//        return lessonRepository.findAll();
-//    }
-//
-//    // Retrieve lessons by course
-//    public List<Lesson> getLessonsByCourse(Course course) {
-//        return lessonRepository.findByCourse(course);
-//    }
-//
-//    // Retrieve a specific lesson by ID
-//    public Optional<Lesson> getLessonById(Long id) {
-//        return lessonRepository.findById(id);
-//    }
-//
-//    // Update an existing lesson
-//    public Lesson updateLesson(Long id, Lesson lessonDetails) {
-//        return lessonRepository.findById(id)
-//                .map(lesson -> {
-//                    lesson.setTopic(lessonDetails.getTopic());
-//                    lesson.setDescription(lessonDetails.getDescription());
-//                    return lessonRepository.save(lesson);
-//                })
-//                .orElseThrow(() -> new RuntimeException("Lesson not found with id: " + id));
-//    }
-//
-//    // Delete a lesson
-//    public void deleteLesson(Long id) {
-//        lessonRepository.deleteById(id);
-//    }
-//}
+package org.saima.LMS.service;
+
+import org.saima.LMS.model.Lesson;
+import org.saima.LMS.dto.LessonDTO;
+import org.saima.LMS.model.Course;
+import org.saima.LMS.repository.CourseRepository;
+import org.saima.LMS.repository.LessonRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
+
+@Service
+public class LessonService {
+
+	  @Autowired
+	    private LessonRepository lessonRepository;
+
+	    @Autowired
+	    private CourseRepository courseRepository;
+
+	    public Lesson createLesson(LessonDTO lessonDTO) {
+	        // Fetch the course for the lesson
+	        Course course = courseRepository.findById(lessonDTO.getCourseId())
+	                .orElseThrow(() -> new IllegalArgumentException("Course not found"));
+
+	        // Create and save the lesson
+	        Lesson lesson = new Lesson(course, lessonDTO.getTopic(), lessonDTO.getDescription());
+	        return lessonRepository.save(lesson);
+	    }
+
+	    public List<Lesson> getAllLessons() {
+	        return lessonRepository.findAll();
+	    }
+
+	    public Optional<Lesson> getLessonById(Long id) {
+	        return lessonRepository.findById(id);
+	    }
+
+	    public void deleteLesson(Long id) {
+	        lessonRepository.deleteById(id);
+	    }
+}

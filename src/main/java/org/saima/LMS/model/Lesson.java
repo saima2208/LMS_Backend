@@ -24,7 +24,7 @@ public class Lesson {
 	@Column(unique = true, nullable = false, name = "TITLE")
 	private String topic;
 
-	@Lob
+
 	private String description;
 
 

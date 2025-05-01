@@ -34,13 +34,13 @@ public class Course {
 
 	private String price;
 	private LocalDateTime startDate;
-	private Long duration;
+	private String duration;
 
 
 	private String description;
 
 
-	public Course(User teacher, List<Lesson> lessons, String name, String price, Long duration,
+	public Course(User teacher, List<Lesson> lessons, String name, String price, String duration,
 				  LocalDateTime startDate, String description) {
 		this.teacher = teacher;
 		this.lessons = lessons;
