@@ -1,6 +1,7 @@
 package org.saima.LMS.service;
 
 import org.saima.LMS.dto.CourseDTO;
+import org.saima.LMS.handler.EntityNotFoundException;
 import org.saima.LMS.model.Course;
 import org.saima.LMS.model.Lesson;
 import org.saima.LMS.model.User;
@@ -60,4 +61,21 @@ public class CourseService {
     public Optional<Course> getCourseById(Long id) {
         return courseRepository.findById(id);
     }
+    
+    public Course updateCourse(Long id, CourseDTO courseDTO) {
+        Course existingCourse = courseRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Course not found with ID: " + id));
+        
+        // Update course details
+        existingCourse.setName(courseDTO.getName());
+        existingCourse.setDescription(courseDTO.getDescription());
+        existingCourse.setDuration(courseDTO.getDuration());
+        // Add other fields as needed
+
+        return courseRepository.save(existingCourse);
+    }
+    public void deleteCourse(Long id) {
+        lessonRepository.deleteById(id);
+    }
 }
+

@@ -2,6 +2,7 @@ package org.saima.LMS.service;
 
 import org.saima.LMS.model.Lesson;
 import org.saima.LMS.dto.LessonDTO;
+import org.saima.LMS.handler.EntityNotFoundException;
 import org.saima.LMS.model.Course;
 import org.saima.LMS.repository.CourseRepository;
 import org.saima.LMS.repository.LessonRepository;
@@ -41,4 +42,17 @@ public class LessonService {
 	    public void deleteLesson(Long id) {
 	        lessonRepository.deleteById(id);
 	    }
+	    
+	    public Lesson updateLesson(Long id, LessonDTO lessonDTO) {
+	        Lesson existingLesson = lessonRepository.findById(id)
+	                .orElseThrow(() -> new EntityNotFoundException("Lesson not found with ID: " + id));
+	        
+	        // Update fields of the lesson
+	        existingLesson.setTopic(lessonDTO.getTopic());
+	        existingLesson.setDescription(lessonDTO.getDescription());
+	       
+	       
+	        return lessonRepository.save(existingLesson);
+	    }
+
 }

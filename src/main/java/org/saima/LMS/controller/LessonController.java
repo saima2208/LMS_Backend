@@ -1,6 +1,7 @@
 package org.saima.LMS.controller;
 
 import org.saima.LMS.dto.LessonDTO;
+import org.saima.LMS.handler.EntityNotFoundException;
 import org.saima.LMS.model.Course;
 import org.saima.LMS.model.Lesson;
 import org.saima.LMS.service.LessonService;
@@ -43,5 +44,17 @@ public class LessonController {
 	    public ResponseEntity<Void> deleteLesson(@PathVariable Long id) {
 	        lessonService.deleteLesson(id);
 	        return ResponseEntity.noContent().build();
+	    }
+	    
+	    @PutMapping("/{id}")
+	    public ResponseEntity<Lesson> updateLesson(@PathVariable Long id, @Validated @RequestBody LessonDTO lessonDTO) {
+	        try {
+	            Lesson updatedLesson = lessonService.updateLesson(id, lessonDTO);
+	            return ResponseEntity.ok(updatedLesson);
+	        } catch (EntityNotFoundException e) {
+	            return ResponseEntity.status(HttpStatus.NOT_FOUND).build(); // Lesson not found
+	        } catch (Exception e) {
+	            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build(); // Other errors
+	        }
 	    }
 }
