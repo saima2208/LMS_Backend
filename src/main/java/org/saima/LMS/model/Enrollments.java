@@ -20,7 +20,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "T_ENROLLMENT", uniqueConstraints = {
-    @UniqueConstraint(columnNames = { "course_id", "student_id" })
+@UniqueConstraint(columnNames = { "course_id"})
 })
 public class Enrollments {
     @Id
@@ -36,12 +36,16 @@ public class Enrollments {
     private User student;
 
     private LocalDateTime enrolled_date;
+    
     private String status;
+    
+    private String paymentMethod;
 
-    public Enrollments(Course course, User student, String status, LocalDateTime enrolled_date) {
+    public Enrollments(Course course, User student, LocalDateTime enrolled_date,String paymentMethod,String status) {
         this.course = course;
         this.student = student;
-        this.status = status;
         this.enrolled_date = enrolled_date;
+        this.paymentMethod = paymentMethod;
+        this.status = status;
     }
 }
