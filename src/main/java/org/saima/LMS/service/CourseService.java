@@ -30,21 +30,25 @@ public class CourseService {
 //    
 
 	public Course createCourse(CourseDTO courseDTO) {
-		// Check if teacher exists with role TEACHER
-		User teacher = userRepository.findByUserIdAndRole(courseDTO.getTeacherId(), Role.TEACHER).orElseThrow(
-				() -> new IllegalArgumentException("Teacher not found with ID: " + courseDTO.getTeacherId()));
+		Optional<User> teacher = userRepository.findByUserIdAndRole(courseDTO.getTeacherId(), Role.TEACHER);
 
-		Course course = new Course();
-		course.setName(courseDTO.getName());
-		course.setTeacher(teacher);
-		course.setPrice(courseDTO.getPrice());
-		course.setStartDate(courseDTO.getStartDate() != null ? courseDTO.getStartDate() : LocalDateTime.now());
-		course.setDuration(courseDTO.getDuration());
-		course.setDescription(courseDTO.getDescription());
+		if (teacher != null) {
+
+			Course course = new Course();
+			course.setName(courseDTO.getName());
+			course.setTeacher(courseDTO.getTeacherId());
+			course.setPrice(courseDTO.getPrice());
+			course.setStartDate(courseDTO.getStartDate() != null ? courseDTO.getStartDate() : LocalDateTime.now());
+			course.setDuration(courseDTO.getDuration());
+			course.setDescription(courseDTO.getDescription());
+
+			return courseRepository.save(course);
+		} else {
+			throw new IllegalArgumentException("Teacher not found with ID: " + courseDTO.getTeacherId());
+		}
 
 		// You can add lessons linking logic here if needed
 
-		return courseRepository.save(course);
 	}
 
 	public List<Course> getAllCourses() {
