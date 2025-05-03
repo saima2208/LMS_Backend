@@ -57,7 +57,7 @@ public class AuthController {
 
 			// Create DTO to return (exclude sensitive info)
 			UserResponse userResponse = new UserResponse();
-			userResponse.setUser_id(savedUser.getUser_Id());
+			userResponse.setUser_id(savedUser.getUserId());
 			userResponse.setName(savedUser.getName());
 			userResponse.setEmail(savedUser.getEmail());
 			userResponse.setRole(savedUser.getRole());
@@ -95,7 +95,7 @@ public class AuthController {
 
 			// Add user information
 			Map<String, Object> userData = new HashMap<>();
-			userData.put("id", user.getUser_Id());
+			userData.put("id", user.getUserId());
 			userData.put("name", user.getName());
 			userData.put("email", user.getEmail());
 			userData.put("role", user.getRole());
@@ -122,7 +122,7 @@ public class AuthController {
 			User user = customUserDetails.user();
 
 			UserResponse userResponse = new UserResponse();
-			userResponse.setUser_id(user.getUser_Id());
+			userResponse.setUser_id(user.getUserId());
 			userResponse.setName(user.getName());
 			userResponse.setEmail(user.getEmail());
 			userResponse.setRole(user.getRole());

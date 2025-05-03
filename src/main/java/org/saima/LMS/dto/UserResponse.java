@@ -1,7 +1,5 @@
 package org.saima.LMS.dto;
 
-import java.time.LocalDateTime;
-
 import org.saima.LMS.constants.Role;
 
 import lombok.Getter;

@@ -69,8 +69,9 @@ public class UserController {
 	@PostMapping
 	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<UserResponse> createUser(@Valid @RequestBody UserCreateRequest userCreateRequest) {
-		User user = new User(userCreateRequest.name(),userCreateRequest.email(), userCreateRequest.password(), userCreateRequest.role(),
-				userCreateRequest.fatherName(),userCreateRequest.motherName(),userCreateRequest.phone());
+		User user = new User(userCreateRequest.name(), userCreateRequest.email(), userCreateRequest.password(),
+				userCreateRequest.role(), userCreateRequest.fatherName(), userCreateRequest.motherName(),
+				userCreateRequest.phone());
 
 		User createdUser = userService.createUser(user);
 		return ResponseEntity.status(HttpStatus.CREATED).body(convertToDTO(createdUser));
@@ -129,7 +130,7 @@ public class UserController {
 				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
 			}
 
-			userService.changePassword(currentUser.getUser_Id(), request.currentPassword(), request.newPassword());
+			userService.changePassword(currentUser.getUserId(), request.currentPassword(), request.newPassword());
 
 			return ResponseEntity.ok().build();
 		} catch (RuntimeException e) {
@@ -140,11 +141,10 @@ public class UserController {
 	// Helper method to convert User entity to UserDTO
 	private UserResponse convertToDTO(User user) {
 		UserResponse dto = new UserResponse();
-		dto.setUser_id(user.getUser_Id());
+		dto.setUser_id(user.getUserId());
 		dto.setName(user.getName());
 		dto.setEmail(user.getEmail());
 		dto.setRole(user.getRole());
-
 
 		dto.setPhone(user.getPhone());
 //		dto.setCreatedAt(user.getCreatedAt());

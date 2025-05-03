@@ -39,6 +39,10 @@ public class UserService {
 		return userRepository.findByRole(role);
 	}
 
+//	public Optional<User> findByUserIdAndRole(Long UserId, Role role) {
+//		return userRepository.findByUserIdAndRole(UserId, role);
+//	}
+
 	@Transactional
 	public User createUser(User user) {
 		if (userRepository.existsByEmail(user.getEmail())) {
