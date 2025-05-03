@@ -15,6 +15,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+
 public class CourseDTO {
 
 	@NotNull(message = "Teacher cannot be null")
