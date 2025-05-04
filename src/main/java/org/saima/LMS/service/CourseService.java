@@ -36,7 +36,7 @@ public class CourseService {
 
 			Course course = new Course();
 			course.setName(courseDTO.getName());
-			course.setTeacher(courseDTO.getTeacherId());
+//			course.setTeacher(courseDTO.getTeacherId());
 			course.setPrice(courseDTO.getPrice());
 			course.setStartDate(courseDTO.getStartDate() != null ? courseDTO.getStartDate() : LocalDateTime.now());
 			course.setDuration(courseDTO.getDuration());

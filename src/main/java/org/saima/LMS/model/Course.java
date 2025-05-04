@@ -31,7 +31,7 @@ public class Course {
 
 	@OneToOne
 	@JoinColumn(name = "teacher", nullable = false, referencedColumnName = "userId")
-	private Long teacher;
+	private User teacher; // private Teacher teacher;
 
 	@OneToMany(mappedBy = "course", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Lesson> lessons;
@@ -45,7 +45,7 @@ public class Course {
 
 	private String description;
 
-	public Course(Long teacher, List<Lesson> lessons, String name, String price, String duration,
+	public Course(User teacher, List<Lesson> lessons, String name, String price, String duration,
 			LocalDateTime startDate, String description) {
 		this.teacher = teacher;
 		this.lessons = lessons;
