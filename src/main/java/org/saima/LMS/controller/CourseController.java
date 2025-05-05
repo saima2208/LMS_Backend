@@ -1,5 +1,6 @@
 package org.saima.LMS.controller;
 
+import java.util.List;
 
 import org.saima.LMS.dto.CourseDTO;
 import org.saima.LMS.handler.EntityNotFoundException;
@@ -10,8 +11,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/courses")
@@ -30,8 +29,7 @@ public class CourseController {
     @GetMapping
     public ResponseEntity<List<Course>> getAllCourses() {
         List<Course> courses = courseService.getAllCourses();
-      return ResponseEntity.ok(courses);
-        
+        return ResponseEntity.ok(courses);
     }
 
     @GetMapping("/{id}")
@@ -57,9 +55,8 @@ public class CourseController {
     	courseService.deleteCourse(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+}
 
  
     
     
-
-}

@@ -2,7 +2,6 @@ package org.saima.LMS.dto;
 
 import java.time.LocalDateTime;
 
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,17 +9,24 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 public class EnrollmentDTO {
-	@NotNull(message = "Course ID cannot be null")
-	private Long courseId;
 	
+    private Long enrollmentId;
+    
     private Long studentId;
     
-    private LocalDateTime enrolledDate;
+    private Long courseId;
+    
+    private LocalDateTime enrollmentDate;
     
     private String paymentMethod;
-    
-    private String status;
+
+    public EnrollmentDTO(Long studentId, Long courseId, LocalDateTime enrollmentDate, String paymentMethod) {
+        this.studentId = studentId;
+        this.courseId = courseId;
+        this.enrollmentDate = enrollmentDate;
+        this.paymentMethod = paymentMethod;
+    }
 }

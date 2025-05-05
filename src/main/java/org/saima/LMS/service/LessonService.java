@@ -1,9 +1,12 @@
 package org.saima.LMS.service;
 
-import org.saima.LMS.model.Lesson;
+
+
+
 import org.saima.LMS.dto.LessonDTO;
 import org.saima.LMS.handler.EntityNotFoundException;
 import org.saima.LMS.model.Course;
+import org.saima.LMS.model.Lesson;
 import org.saima.LMS.repository.CourseRepository;
 import org.saima.LMS.repository.LessonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +30,7 @@ public class LessonService {
 	                .orElseThrow(() -> new IllegalArgumentException("Course not found"));
 
 	        // Create and save the lesson
-	        Lesson lesson = new Lesson(course, lessonDTO.getTopic(), lessonDTO.getDescription());
+	        Lesson lesson = new Lesson(course, lessonDTO.getTopic(), lessonDTO.getContent());
 	        return lessonRepository.save(lesson);
 	    }
 
@@ -49,7 +52,7 @@ public class LessonService {
 	        
 	        // Update fields of the lesson
 	        existingLesson.setTopic(lessonDTO.getTopic());
-	        existingLesson.setDescription(lessonDTO.getDescription());
+	        existingLesson.setContent(lessonDTO.getContent());
 	       
 	       
 	        return lessonRepository.save(existingLesson);

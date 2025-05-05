@@ -17,5 +17,5 @@ public class LessonDTO {
     @NotNull(message = "Lesson topic cannot be null")
     private String topic;
 
-    private String description;
+    private String content;
 }

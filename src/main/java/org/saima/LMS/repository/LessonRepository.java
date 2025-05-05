@@ -1,7 +1,5 @@
 package org.saima.LMS.repository;
 
-
-
 import org.saima.LMS.model.Lesson;
 import org.saima.LMS.model.Course;
 import org.springframework.data.jpa.repository.JpaRepository;

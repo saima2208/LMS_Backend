@@ -1,10 +1,12 @@
 package org.saima.LMS.controller;
 
+
+
 import org.saima.LMS.dto.LessonDTO;
 import org.saima.LMS.handler.EntityNotFoundException;
-import org.saima.LMS.model.Course;
 import org.saima.LMS.model.Lesson;
 import org.saima.LMS.service.LessonService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

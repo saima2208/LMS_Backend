@@ -1,5 +1,14 @@
 package org.saima.LMS.service;
 
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
+import org.isdb.firstSpring.dto.BookDTO;
+import org.isdb.firstSpring.model.Book;
+import org.isdb.firstSpring.model.StudentClass;
+import org.saima.LMS.constants.Role;
 import org.saima.LMS.dto.CourseDTO;
 import org.saima.LMS.handler.EntityNotFoundException;
 import org.saima.LMS.model.Course;
@@ -10,10 +19,6 @@ import org.saima.LMS.repository.LessonRepository;
 import org.saima.LMS.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class CourseService {
@@ -29,25 +34,25 @@ public class CourseService {
 
     public Course createCourse(CourseDTO courseDTO) {
         // Fetch Teacher
-        User teacher = userRepository.findById(courseDTO.getTeacherId())
+        User teacher = userRepository.findByIdAndRole(courseDTO.getTeacherId(), Role.TEACHER)
                 .orElseThrow(() -> new IllegalArgumentException("Teacher not found"));
 
         // Fetch Lessons
-        List<Lesson> lessons = courseDTO.getLessonIds() != null
-                ? courseDTO.getLessonIds().stream()
-                .map(id -> lessonRepository.findById(id)
-                        .orElseThrow(() -> new IllegalArgumentException("Lesson not found: " + id)))
-                .collect(Collectors.toList())
-                : null;
+//        List<Lesson> lessons = courseDTO.getLessonIds() != null
+//                ? courseDTO.getLessonIds().stream()
+//                .map(id -> lessonRepository.findById(id)
+//                        .orElseThrow(() -> new IllegalArgumentException("Lesson not found: " + id)))
+//                .collect(Collectors.toList())
+//                : null;
 
         // Create and Save Course
         Course course = new Course(
                 teacher,
-                lessons,
+//                lessons,
                 courseDTO.getName(),
                 courseDTO.getPrice(),
-                courseDTO.getDuration(),
                 courseDTO.getStartDate(),
+                courseDTO.getDuration(),
                 courseDTO.getDescription()
         );
 
@@ -78,4 +83,3 @@ public class CourseService {
         lessonRepository.deleteById(id);
     }
 }
-
