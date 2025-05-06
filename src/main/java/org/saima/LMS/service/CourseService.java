@@ -1,18 +1,12 @@
 package org.saima.LMS.service;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
-import org.isdb.firstSpring.dto.BookDTO;
-import org.isdb.firstSpring.model.Book;
-import org.isdb.firstSpring.model.StudentClass;
 import org.saima.LMS.constants.Role;
 import org.saima.LMS.dto.CourseDTO;
 import org.saima.LMS.handler.EntityNotFoundException;
 import org.saima.LMS.model.Course;
-import org.saima.LMS.model.Lesson;
 import org.saima.LMS.model.User;
 import org.saima.LMS.repository.CourseRepository;
 import org.saima.LMS.repository.LessonRepository;
@@ -23,21 +17,21 @@ import org.springframework.stereotype.Service;
 @Service
 public class CourseService {
 
-    @Autowired
-    private CourseRepository courseRepository;
+	@Autowired
+	private CourseRepository courseRepository;
 
-    @Autowired
-    private UserRepository userRepository;
+	@Autowired
+	private UserRepository userRepository;
 
-    @Autowired
-    private LessonRepository lessonRepository;
+	@Autowired
+	private LessonRepository lessonRepository;
 
-    public Course createCourse(CourseDTO courseDTO) {
-        // Fetch Teacher
-        User teacher = userRepository.findByIdAndRole(courseDTO.getTeacherId(), Role.TEACHER)
-                .orElseThrow(() -> new IllegalArgumentException("Teacher not found"));
+	public Course createCourse(CourseDTO courseDTO) {
+		// Fetch Teacher
+		User teacher = userRepository.findByIdAndRole(courseDTO.getTeacherId(), Role.TEACHER)
+				.orElseThrow(() -> new IllegalArgumentException("Teacher not found"));
 
-        // Fetch Lessons
+		// Fetch Lessons
 //        List<Lesson> lessons = courseDTO.getLessonIds() != null
 //                ? courseDTO.getLessonIds().stream()
 //                .map(id -> lessonRepository.findById(id)
@@ -45,41 +39,37 @@ public class CourseService {
 //                .collect(Collectors.toList())
 //                : null;
 
-        // Create and Save Course
-        Course course = new Course(
-                teacher,
+		// Create and Save Course
+		Course course = new Course(teacher,
 //                lessons,
-                courseDTO.getName(),
-                courseDTO.getPrice(),
-                courseDTO.getStartDate(),
-                courseDTO.getDuration(),
-                courseDTO.getDescription()
-        );
+				courseDTO.getName(), courseDTO.getPrice(), courseDTO.getStartDate(), courseDTO.getDuration(),
+				courseDTO.getDescription());
 
-        return courseRepository.save(course);
-    }
+		return courseRepository.save(course);
+	}
 
-    public List<Course> getAllCourses() {
-        return courseRepository.findAll();
-    }
+	public List<Course> getAllCourses() {
+		return courseRepository.findAll();
+	}
 
-    public Optional<Course> getCourseById(Long id) {
-        return courseRepository.findById(id);
-    }
-    
-    public Course updateCourse(Long id, CourseDTO courseDTO) {
-        Course existingCourse = courseRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Course not found with ID: " + id));
-        
-        // Update course details
-        existingCourse.setName(courseDTO.getName());
-        existingCourse.setDescription(courseDTO.getDescription());
-        existingCourse.setDuration(courseDTO.getDuration());
-        // Add other fields as needed
+	public Optional<Course> getCourseById(Long id) {
+		return courseRepository.findById(id);
+	}
 
-        return courseRepository.save(existingCourse);
-    }
-    public void deleteCourse(Long id) {
-        lessonRepository.deleteById(id);
-    }
+	public Course updateCourse(Long id, CourseDTO courseDTO) {
+		Course existingCourse = courseRepository.findById(id)
+				.orElseThrow(() -> new EntityNotFoundException("Course not found with ID: " + id));
+
+		// Update course details
+		existingCourse.setName(courseDTO.getName());
+		existingCourse.setDescription(courseDTO.getDescription());
+		existingCourse.setDuration(courseDTO.getDuration());
+		// Add other fields as needed
+
+		return courseRepository.save(existingCourse);
+	}
+
+	public void deleteCourse(Long id) {
+		lessonRepository.deleteById(id);
+	}
 }
