@@ -7,7 +7,6 @@ import org.saima.LMS.dto.EnrollmentDTO;
 import org.saima.LMS.model.Enrollment;
 import org.saima.LMS.repository.CourseRepository;
 import org.saima.LMS.repository.EnrollmentRepository;
-import org.saima.LMS.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,9 +17,6 @@ public class EnrollmentService {
 
 	@Autowired
 	private CourseRepository courseRepository;
-
-	@Autowired
-	private UserRepository userRepository;
 
 	public List<EnrollmentDTO> getAllEnrollments() {
 		return enrollmentRepository.findAll().stream().map(enrollment -> new EnrollmentDTO())
