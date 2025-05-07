@@ -1,6 +1,6 @@
 package org.saima.LMS.model;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -22,28 +22,24 @@ import lombok.Setter;
 @Entity
 @Table(name = "enrollments")
 public class Enrollment {
-	 @Id
-	    @GeneratedValue(strategy = GenerationType.IDENTITY)
-	    private Long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
-	    @ManyToOne
-	    @JoinColumn(name = "student_id", nullable = false)
-	    private User studentId;
+	@ManyToOne
+	@JoinColumn(name = "course_id", nullable = false)
+	private Course course;
 
-	    @ManyToOne
-	    @JoinColumn(name = "course_id", nullable = false)
-	    private Course course;
+	@Column(name = "enrollment_date", nullable = false)
+	private LocalDate enrollmentDate;
 
-	    @Column(name = "enrollment_date", nullable = false)
-	    private LocalDateTime enrollmentDate;
-	    
-	    private String paymentMethod;
+	private String paymentMethod;
 
-	    public Enrollment(User studentId, Course course, LocalDateTime enrollmentDate,String paymentMethod) {
-	        this.studentId = studentId;
-	        this.course = course;
-	        this.enrollmentDate = enrollmentDate;
-	        this.paymentMethod = paymentMethod;
-	    }
+	public Enrollment(Course course, LocalDate enrollmentDate, String paymentMethod) {
+
+		this.course = course;
+		this.enrollmentDate = enrollmentDate;
+		this.paymentMethod = paymentMethod;
+	}
 
 }

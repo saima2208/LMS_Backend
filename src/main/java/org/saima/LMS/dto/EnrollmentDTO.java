@@ -1,6 +1,6 @@
 package org.saima.LMS.dto;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -12,21 +12,18 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class EnrollmentDTO {
-	
-    private Long enrollmentId;
-    
-    private Long studentId;
-    
-    private Long courseId;
-    
-    private LocalDateTime enrollmentDate;
-    
-    private String paymentMethod;
 
-    public EnrollmentDTO(Long studentId, Long courseId, LocalDateTime enrollmentDate, String paymentMethod) {
-        this.studentId = studentId;
-        this.courseId = courseId;
-        this.enrollmentDate = enrollmentDate;
-        this.paymentMethod = paymentMethod;
-    }
+	private Long enrollmentId;
+
+	private Long courseId;
+
+	private LocalDate enrollmentDate;
+
+	private String paymentMethod;
+
+	public EnrollmentDTO(Long courseId, LocalDate enrollmentDate, String paymentMethod) {
+		this.courseId = courseId;
+		this.enrollmentDate = enrollmentDate;
+		this.paymentMethod = paymentMethod;
+	}
 }

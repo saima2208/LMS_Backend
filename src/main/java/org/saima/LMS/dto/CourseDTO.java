@@ -1,10 +1,8 @@
 package org.saima.LMS.dto;
 
-import java.time.LocalDateTime;
-import java.util.List;
+import java.time.LocalDate;
 
 import org.saima.LMS.annotation.UniqueCourseName;
-import org.saima.LMS.model.User;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -18,18 +16,18 @@ import lombok.Setter;
 @NoArgsConstructor
 
 public class CourseDTO {
-	
+
 	@NotNull(message = "Teacher cannot be null")
 	private Long teacherId;
 
 //	private List<Long> lessonIds;
-	
+
 	@NotNull(message = "Course title cannot be null")
 	@UniqueCourseName // Custom unique validation
 	private String name;
 
 	private String price;
-	private LocalDateTime startDate;
+	private LocalDate startDate;
 	private String duration;
 	private String description;
 

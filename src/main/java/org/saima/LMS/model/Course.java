@@ -1,7 +1,6 @@
 package org.saima.LMS.model;
 
-import java.time.LocalDateTime;
-import java.util.List;
+import java.time.LocalDate;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -9,7 +8,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -28,21 +26,19 @@ public class Course {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	
 	@OneToOne
 	@JoinColumn(name = "teacher_id", nullable = false)
 	private User teacher;
 
 //	@OneToMany(mappedBy = "course")
 //	private List<Lesson> lessons;
-	
+
 	@Column(nullable = false, length = 200, unique = true)
 	private String name;
 
-
 	private String price;
 
-	private LocalDateTime startDate;
+	private LocalDate startDate;
 
 	@Column(nullable = false, name = "duration(Months)")
 	private String duration;
@@ -50,8 +46,7 @@ public class Course {
 	@Column(columnDefinition = "TEXT")
 	private String description;
 
-	public Course(User teacher, String name, String price, LocalDateTime startDate,
-			String duration, String description) {
+	public Course(User teacher, String name, String price, LocalDate startDate, String duration, String description) {
 		this.teacher = teacher;
 //		this.lessons = lessons;
 		this.name = name;
