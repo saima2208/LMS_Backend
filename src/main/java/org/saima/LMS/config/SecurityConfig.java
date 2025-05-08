@@ -39,13 +39,17 @@ public class SecurityConfig {
 	public SecurityFilterChain securityFilterChain(HttpSecurity http, JwtTokenProvider jwtTokenProvider)
 			throws Exception {
 		http.cors(Customizer.withDefaults()).csrf(AbstractHttpConfigurer::disable)
-				.authorizeHttpRequests(auth -> auth.requestMatchers("/api/auth/**").permitAll()
-						.requestMatchers("/api/courses").hasRole("ADMIN").requestMatchers("/api/lessons")
-						.hasRole("ADMIN").requestMatchers("/api/public/**").permitAll().requestMatchers("/api/user/**")
-						.hasAnyRole("STUDENT", "TEACHER", "ADMIN").requestMatchers("/api/teacher/**")
-						.hasAnyRole("TEACHER", "ADMIN").requestMatchers("/api/admin/**").hasRole("ADMIN").anyRequest()
-						.authenticated())
-				.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
+				.authorizeHttpRequests(auth -> auth.requestMatchers("/api/**").permitAll()
+				/*
+				 * .requestMatchers("/api/users/**").permitAll().requestMatchers(
+				 * "/api/courses/**").permitAll()
+				 * .requestMatchers("/api/lessons").hasRole("ADMIN").requestMatchers(
+				 * "/api/public/**").permitAll()
+				 * .requestMatchers("/api/user/**").hasAnyRole("STUDENT", "TEACHER", "ADMIN")
+				 * .requestMatchers("/api/teacher/**").hasAnyRole("TEACHER", "ADMIN")
+				 * .requestMatchers("/api/admin/**").hasRole("ADMIN").anyRequest().authenticated
+				 * ()
+				 */).addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
 				.httpBasic(Customizer.withDefaults())
 				.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 

@@ -46,7 +46,10 @@ public class Course {
 	@Column(columnDefinition = "TEXT")
 	private String description;
 
-	public Course(User teacher, String name, String price, LocalDate startDate, String duration, String description) {
+	private String image;
+
+	public Course(User teacher, String name, String price, LocalDate startDate, String duration, String description,
+			String image) {
 		this.teacher = teacher;
 //		this.lessons = lessons;
 		this.name = name;
@@ -54,6 +57,7 @@ public class Course {
 		this.startDate = startDate;
 		this.duration = duration;
 		this.description = description;
+		this.image = image;
 	}
 
 }
