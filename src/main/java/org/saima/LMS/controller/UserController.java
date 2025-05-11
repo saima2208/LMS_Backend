@@ -152,7 +152,7 @@ public class UserController {
 		dto.setFatherName(user.getFatherName());
 		dto.setMotherName(user.getMotherName());
 		dto.setPhone(user.getPhone());
-		dto.setPhone(user.getAvatarUrl());
+		dto.setAvatarUrl(user.getAvatarUrl());
 
 		return dto;
 	}

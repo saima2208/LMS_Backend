@@ -8,6 +8,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -20,21 +22,22 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "t_course")
+@Table(name = "t_courses")
 public class Course {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
 	@OneToOne
-	@JoinColumn(name = "teacher_id", nullable = false)
+	
+	@JoinColumn(name = "teacher_id")
 	private User teacher;
 
 //	@OneToMany(mappedBy = "course")
 //	private List<Lesson> lessons;
 
 	@Column(nullable = false, length = 200, unique = true)
-	private String name;
+	private String courseName;
 
 	private String price;
 
@@ -45,14 +48,14 @@ public class Course {
 
 	@Column(columnDefinition = "TEXT")
 	private String description;
-
+	@Column(length = 500)
 	private String image;
 
-	public Course(User teacher, String name, String price, LocalDate startDate, String duration, String description,
+	public Course(User teacher, String courseName, String price, LocalDate startDate, String duration, String description,
 			String image) {
 		this.teacher = teacher;
 //		this.lessons = lessons;
-		this.name = name;
+		this.courseName = courseName;
 		this.price = price;
 		this.startDate = startDate;
 		this.duration = duration;

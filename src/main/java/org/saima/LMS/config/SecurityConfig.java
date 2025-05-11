@@ -40,6 +40,7 @@ public class SecurityConfig {
 			throws Exception {
 		http.cors(Customizer.withDefaults()).csrf(AbstractHttpConfigurer::disable)
 				.authorizeHttpRequests(auth -> auth.requestMatchers("/api/**").permitAll()
+					.requestMatchers("/api/course/**").hasRole("ADMIN")
 				/*
 				 * .requestMatchers("/api/users/**").permitAll().requestMatchers(
 				 * "/api/courses/**").permitAll()

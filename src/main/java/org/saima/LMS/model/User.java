@@ -41,7 +41,7 @@ public class User {
     private String motherName;
     private String phone;
     private String avatarUrl;
-    private Long studentId;
+//    private Long studentId;
 //    @Column(name = "created_at")
 //    private LocalDateTime createdAt;
 //

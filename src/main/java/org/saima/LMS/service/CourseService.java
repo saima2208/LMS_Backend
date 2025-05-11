@@ -42,8 +42,8 @@ public class CourseService {
 		// Create and Save Course
 		Course course = new Course(teacher,
 //                lessons,
-				courseDTO.getName(), courseDTO.getPrice(), courseDTO.getStartDate(), courseDTO.getDuration(),
-				courseDTO.getDescription());
+				courseDTO.getCourseName(), courseDTO.getPrice(), courseDTO.getStartDate(), courseDTO.getDuration(),
+				courseDTO.getDescription(),courseDTO.getImage());
 
 		return courseRepository.save(course);
 	}
@@ -55,21 +55,29 @@ public class CourseService {
 	public Optional<Course> getCourseById(Long id) {
 		return courseRepository.findById(id);
 	}
+	
+//	public Optional<Course> getCourseByName(String CourseName) {
+//		return courseRepository.findByName("");
+//	}
+
 
 	public Course updateCourse(Long id, CourseDTO courseDTO) {
 		Course existingCourse = courseRepository.findById(id)
 				.orElseThrow(() -> new EntityNotFoundException("Course not found with ID: " + id));
 
 		// Update course details
-		existingCourse.setName(courseDTO.getName());
-		existingCourse.setDescription(courseDTO.getDescription());
+		existingCourse.setCourseName(courseDTO.getCourseName());
+		existingCourse.setPrice(courseDTO.getPrice());
+		existingCourse.setStartDate(courseDTO.getStartDate());
 		existingCourse.setDuration(courseDTO.getDuration());
+		existingCourse.setDescription(courseDTO.getDescription());
+		existingCourse.setImage(courseDTO.getImage());
 		// Add other fields as needed
 
 		return courseRepository.save(existingCourse);
 	}
 
 	public void deleteCourse(Long id) {
-		lessonRepository.deleteById(id);
+		courseRepository.deleteById(id);
 	}
 }

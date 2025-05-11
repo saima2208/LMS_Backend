@@ -20,5 +20,7 @@ public class UserResponse {
     private String fatherName;
     private String motherName;
     private String phone;
+    private String avatarUrl;
+    
    
 }

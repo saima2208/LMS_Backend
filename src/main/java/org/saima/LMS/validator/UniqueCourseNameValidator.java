@@ -20,6 +20,6 @@ public class UniqueCourseNameValidator implements ConstraintValidator<UniqueCour
 			return true; // @NotNull should handle this separately
 		}
 
-		return !courseRepository.existsByName(courseName);
+		return !courseRepository.existsByCourseName(courseName);
 	}
 }

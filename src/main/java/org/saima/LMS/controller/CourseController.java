@@ -50,6 +50,8 @@ public class CourseController {
             return ResponseEntity.badRequest().body(null); // For other unexpected errors
         }
     }
+    
+    
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteCourse(@PathVariable Long id) {
     	courseService.deleteCourse(id);
