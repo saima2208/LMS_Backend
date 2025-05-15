@@ -29,7 +29,6 @@ public class Course {
 	private Long id;
 
 	@OneToOne
-	
 	@JoinColumn(name = "teacher_id")
 	private User teacher;
 

@@ -11,4 +11,6 @@ import java.util.List;
 public interface LessonRepository extends JpaRepository<Lesson, Long> {
     // Find lessons by course
     List<Lesson> findByCourse(Course course);
+    
+    
 }
