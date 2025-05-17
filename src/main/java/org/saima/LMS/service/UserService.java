@@ -125,4 +125,23 @@ public class UserService {
         Optional<User> byEmail = userRepository.findByEmail(username);
         return byEmail.map(CustomUserDetails::new).orElse(null);
     }
+    
+    
+    public User updateUserByEmail(String email, User userDTO) {
+        // Find the user by email
+        Optional<User> optionalUser = userRepository.findByEmail(email);
+        if (optionalUser.isEmpty()) {
+            return null; // User not found
+        }
+
+        User user = optionalUser.get();
+
+        // Update user fields from DTO (excluding email)
+        if (userDTO.getName() != null) user.setName(userDTO.getName());
+        if (userDTO.getPhone() != null) user.setPhone(userDTO.getPhone());
+        // Add more fields as necessary
+
+        // Save updated user
+        return userRepository.save(user);
+    }
 }

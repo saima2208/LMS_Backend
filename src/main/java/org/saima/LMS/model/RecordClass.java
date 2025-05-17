@@ -29,11 +29,16 @@ private Long id;
 @JoinColumn(name = "course_id", nullable = false)
 private Course course;
 
+@ManyToOne
+@JoinColumn(name = "lesson_id", nullable = false)
+private Lesson lesson;
+
 private String videoUrl;
 
 
-public RecordClass(Course course,String videoUrl) {
+public RecordClass(Course course, Lesson lesson,String videoUrl) {
 	this.course = course;
+	this.lesson= lesson;
 	this.videoUrl = videoUrl;
 }
 }

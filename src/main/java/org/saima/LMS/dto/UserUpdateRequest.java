@@ -15,6 +15,9 @@ public record UserUpdateRequest(
         String name,
         String fatherName,
         String motherName,
-        String phone
+        String phone,
+        String address,
+        String avatarUrl
+        
 ) {
 }

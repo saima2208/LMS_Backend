@@ -12,9 +12,12 @@ import lombok.Setter;
 @NoArgsConstructor
 public class RecordClassDTO {
 
-	@NotNull(message = "Course ID cannot be null")
-    private Long courseId;
+	@NotNull(message = "Course name cannot be null")
+    private String courseName;
 
+	@NotNull(message = "lesson ID cannot be null")
+    private Long lessonId;
+	
     @NotNull(message = "Lesson topic cannot be null")
     private String videoUrl;
 }

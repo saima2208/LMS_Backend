@@ -104,6 +104,24 @@ public class UserController {
 			return ResponseEntity.badRequest().build();
 		}
 	}
+	
+	 @PutMapping
+	    public ResponseEntity<?> updateUserByEmail(@RequestBody User userDTO) {
+	        if (userDTO.getEmail() == null || userDTO.getEmail().isEmpty()) {
+	            return ResponseEntity.badRequest().body("Email is required to update user.");
+	        }
+
+	        try {
+	            User updatedUser = userService.updateUserByEmail(userDTO.getEmail(), userDTO);
+	            if (updatedUser == null) {
+	                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found with this email.");
+	            }
+	            return ResponseEntity.ok(updatedUser);
+	        } catch (Exception e) {
+	            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+	                    .body("Failed to update user: " + e.getMessage());
+	        }
+	    }
 
 	@DeleteMapping("/{id}")
 	@PreAuthorize("hasRole('ADMIN')")
