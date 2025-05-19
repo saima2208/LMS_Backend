@@ -6,10 +6,12 @@ import java.util.stream.Collectors;
 import org.saima.LMS.annotation.CurrentUser;
 import org.saima.LMS.constants.Role;
 import org.saima.LMS.dto.PasswordChangeRequest;
+import org.saima.LMS.dto.PasswordChangeRequestDto;
 import org.saima.LMS.dto.UserCreateRequest;
 import org.saima.LMS.dto.UserResponse;
 import org.saima.LMS.dto.UserUpdateRequest;
 import org.saima.LMS.model.User;
+
 import org.saima.LMS.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -29,6 +31,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+
+
 import jakarta.validation.Valid;
 
 @RestController
@@ -37,6 +41,8 @@ import jakarta.validation.Valid;
 public class UserController {
 
 	private final UserService userService;
+	
+//	 private final UserInfoDetailsService userInfoDetailsService;
 
 	@Autowired
 	public UserController(UserService userService) {
@@ -69,9 +75,15 @@ public class UserController {
 	@PostMapping
 	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<UserResponse> createUser(@Valid @RequestBody UserCreateRequest userCreateRequest) {
-		User user = new User(userCreateRequest.email(), userCreateRequest.password(), userCreateRequest.role(),
-				userCreateRequest.name(), userCreateRequest.fatherName(), userCreateRequest.motherName(),
-				userCreateRequest.phone(), userCreateRequest.avatarUrl()
+		User user = new User(userCreateRequest.email(),
+				userCreateRequest.password(),
+				userCreateRequest.role(),
+				userCreateRequest.name(),
+				userCreateRequest.fatherName(),
+				userCreateRequest.motherName(),
+				userCreateRequest.phone(), 
+				userCreateRequest.address(),
+				userCreateRequest.avatarUrl()
 
 		);
 
@@ -91,6 +103,8 @@ public class UserController {
 			userDetails.setFatherName(userUpdateRequest.fatherName());
 			userDetails.setMotherName(userUpdateRequest.motherName());
 			userDetails.setPhone(userUpdateRequest.phone());
+			userDetails.setAddress(userUpdateRequest.address());
+			userDetails.setAvatarUrl(userUpdateRequest.avatarUrl());
 
 			// Only admin can update roles
 			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -159,6 +173,18 @@ public class UserController {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
 	}
+	
+//    @PutMapping("/change-password")
+//    public ResponseEntity<?> changePassword(@RequestBody PasswordChangeRequestDto request) {
+//        if (request.getCurrentPassword() == null || request.getNewPassword() == null) {
+//            return ResponseEntity.badRequest().body("Password fields cannot be null");
+//        }
+//
+//        userInfoDetailsService.changePassword(request.getUserId(), request.getCurrentPassword(), request.getNewPassword());
+//        return ResponseEntity.ok("Password changed successfully");
+//    }
+	
+	
 
 	// Helper method to convert User entity to UserDTO
 	private UserResponse convertToDTO(User user) {
@@ -170,6 +196,7 @@ public class UserController {
 		dto.setFatherName(user.getFatherName());
 		dto.setMotherName(user.getMotherName());
 		dto.setPhone(user.getPhone());
+		dto.setAddress(user.getAddress());
 		dto.setAvatarUrl(user.getAvatarUrl());
 
 		return dto;

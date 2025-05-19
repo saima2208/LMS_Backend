@@ -40,6 +40,7 @@ public class User {
     private String fatherName;
     private String motherName;
     private String phone;
+    private String address;
     private String avatarUrl;
 //    private Long studentId;
 //    @Column(name = "created_at")
@@ -48,7 +49,7 @@ public class User {
 //    @Column(name = "updated_at")
 //    private LocalDateTime updatedAt;
 
-    public User(String email, String password, Role role, String name, String fatherName,String motherName, String phone,String avatarUrl) {
+    public User(String email, String password, Role role, String name, String fatherName,String motherName, String phone,String address,String avatarUrl) {
         this.email = email;
         this.password = password;
         this.role = role;
@@ -56,6 +57,7 @@ public class User {
         this.fatherName = fatherName;
         this.motherName = motherName;
         this.phone = phone;
+        this.address = address;
         this.avatarUrl = avatarUrl;
     }
 

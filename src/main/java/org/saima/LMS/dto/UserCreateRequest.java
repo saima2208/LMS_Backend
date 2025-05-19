@@ -29,6 +29,10 @@ public record UserCreateRequest(
         String fatherName,
         String motherName,
         String phone,
-        String avatarUrl
+        String avatarUrl,
+        String address,
+      
+        String nationality
+      
 ) {
 }

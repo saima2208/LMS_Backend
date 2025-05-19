@@ -23,5 +23,5 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
 	Optional<User> findByIdAndRole(Long teacherId, Role role);
 	
-	
+	 	
 }

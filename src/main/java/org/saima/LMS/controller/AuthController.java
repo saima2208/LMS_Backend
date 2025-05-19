@@ -55,6 +55,7 @@ public class AuthController {
                     registerRequest.fatherName(),
                     registerRequest.motherName(),
                     registerRequest.phone(),
+                    registerRequest.address(),
                     registerRequest.avatarUrl()
                     
             );
@@ -96,17 +97,19 @@ public class AuthController {
             // Create response with token and user info
             Map<String, Object> responseData = new HashMap<>();
             responseData.put("access_token", jwt);
-            responseData.put("tokenType", "Bearer");
+            responseData.put("role", user.getRole());
+            responseData.put("id", user.getId());
+            
 
             // Add user information
-            Map<String, Object> userData = new HashMap<>();
-            userData.put("id", user.getId());
-            userData.put("email", user.getEmail());
-            userData.put("role", user.getRole());
-            userData.put("firstName", user.getFatherName());
-            userData.put("lastName", user.getMotherName());
-
-            responseData.put("user", userData);
+//            Map<String, Object> userData = new HashMap<>();
+//            userData.put("id", user.getId());
+//            userData.put("email", user.getEmail());
+//            userData.put("role", user.getRole());
+//            userData.put("firstName", user.getFatherName());
+//            userData.put("lastName", user.getMotherName());
+//
+//            responseData.put("user", userData);
 
             return ResponseEntity.ok(responseData);
         } catch (AuthenticationException e) {

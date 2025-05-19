@@ -61,6 +61,7 @@ public class UserService {
         user.setName(userDetails.getName());
         user.setFatherName(userDetails.getFatherName());
         user.setMotherName(userDetails.getMotherName());
+        
        
         user.setPhone(userDetails.getPhone());
         user.setAvatarUrl(userDetails.getAvatarUrl());

@@ -26,6 +26,7 @@ public record RegisterRequest(
         String fatherName,
         String motherName,
         String phone,
+        String address,
         String avatarUrl
 ) {
 }
