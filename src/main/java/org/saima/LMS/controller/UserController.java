@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 import org.saima.LMS.annotation.CurrentUser;
 import org.saima.LMS.constants.Role;
 import org.saima.LMS.dto.PasswordChangeRequest;
-import org.saima.LMS.dto.PasswordChangeRequestDto;
+
 import org.saima.LMS.dto.UserCreateRequest;
 import org.saima.LMS.dto.UserResponse;
 import org.saima.LMS.dto.UserUpdateRequest;
@@ -30,8 +30,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-
+import org.springframework.web.multipart.MultipartFile;
 
 import jakarta.validation.Valid;
 
@@ -92,7 +91,7 @@ public class UserController {
 	}
 
 	@PutMapping("/{id}")
-	@PreAuthorize("hasRole('ADMIN') or @userSecurity.hasUserId(authentication, #id)")
+//	@PreAuthorize("hasRole('ADMIN') or @userSecurity.hasUserId(authentication, #id)")
 	public ResponseEntity<UserResponse> updateUser(@PathVariable Long id,
 			@Valid @RequestBody UserUpdateRequest userUpdateRequest) {
 		try {
@@ -118,6 +117,22 @@ public class UserController {
 			return ResponseEntity.badRequest().build();
 		}
 	}
+	
+//	  @PutMapping("/{id}")
+//	    public ResponseEntity<User> updateUserProfile(
+//	            @PathVariable Long id,
+//	            @RequestParam("name") String name,
+//	            @RequestParam("phone") String phone,
+//	            @RequestParam("address") String address,
+//	            @RequestParam(value = "avatarUrl", required = false) MultipartFile avatarUrl) {
+//
+//	        try {
+//	            User updatedUser = userService.updateUserProfile(id, name, phone, address, avatarUrl);
+//	            return ResponseEntity.ok(updatedUser);
+//	        } catch (Exception e) {
+//	            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+//	        }
+//	    }
 	
 	 @PutMapping
 	    public ResponseEntity<?> updateUserByEmail(@RequestBody User userDTO) {
@@ -156,6 +171,8 @@ public class UserController {
 		}
 		return ResponseEntity.ok(convertToDTO(currentUser));
 	}
+	
+	
 
 	@PostMapping("/change-password")
 	public ResponseEntity<?> changePassword(Authentication authentication,

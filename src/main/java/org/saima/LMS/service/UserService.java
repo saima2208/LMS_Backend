@@ -7,13 +7,16 @@ import jakarta.transaction.Transactional;
 import org.saima.LMS.constants.Role;
 import org.saima.LMS.model.CustomUserDetails;
 import org.saima.LMS.model.User;
+import org.saima.LMS.model.UserInfoDetails;
 import org.saima.LMS.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -64,6 +67,7 @@ public class UserService {
         
        
         user.setPhone(userDetails.getPhone());
+        user.setAddress(userDetails.getAddress());
         user.setAvatarUrl(userDetails.getAvatarUrl());
 
         // Only update email if it has changed and is not already in use
@@ -101,8 +105,8 @@ public class UserService {
             return null;
         }
 
-        if (authentication.getPrincipal() instanceof CustomUserDetails) {
-            return ((CustomUserDetails) authentication.getPrincipal()).user();
+        if (authentication.getPrincipal() instanceof UserInfoDetails) {
+            return ((UserInfoDetails) authentication.getPrincipal()).user();
         }
 
         return null;
@@ -145,4 +149,21 @@ public class UserService {
         // Save updated user
         return userRepository.save(user);
     }
+    
+    
+//    public User updateUserProfile(Long id, String name, String phone, String address, MultipartFile avatarUrl) throws IOException {
+//        User user = userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
+//
+//        user.setName(name);
+//        user.setPhone(phone);
+//        user.setAddress(address);
+//
+//        // Save the avatar file (if provided)
+//        if (avatarUrl != null && !avatarUrl.isEmpty()) {
+//            byte[] avatarBytes = avatarUrl.getBytes();
+//            user.setAvatarUrl(avatarBytes); // Save the avatar bytes to the database
+//        }
+//
+//        return userRepository.save(user);
+//    }
 }

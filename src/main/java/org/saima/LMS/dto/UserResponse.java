@@ -29,10 +29,11 @@ public class UserResponse {
 	    private String name;
 	    private String fatherName;
 	    private String motherName;
-	    private String address;
+	  
 	    private String phone;
-	    private String gender;
-	    private String nationality;
+//	    private String gender;
+//	    private String nationality;
+	    private String address;
 	    private String avatarUrl;
 
 	    // Getters and Setters

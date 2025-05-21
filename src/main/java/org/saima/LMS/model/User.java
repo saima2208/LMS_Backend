@@ -42,12 +42,8 @@ public class User {
     private String phone;
     private String address;
     private String avatarUrl;
-//    private Long studentId;
-//    @Column(name = "created_at")
-//    private LocalDateTime createdAt;
-//
-//    @Column(name = "updated_at")
-//    private LocalDateTime updatedAt;
+    
+
 
     public User(String email, String password, Role role, String name, String fatherName,String motherName, String phone,String address,String avatarUrl) {
         this.email = email;
@@ -61,14 +57,13 @@ public class User {
         this.avatarUrl = avatarUrl;
     }
 
-//    @PrePersist
-//    protected void onCreate() {
-//        createdAt = LocalDateTime.now();
-//        updatedAt = LocalDateTime.now();
-//    }
-//
-//    @PreUpdate
-//    protected void onUpdate() {
-//        updatedAt = LocalDateTime.now();
+
+    
+
+//    public String getAvatarUrl() {
+//        if (avatarUrl != null) {
+//            return "data:image/jpeg;base64," + java.util.Base64.getEncoder().encodeToString(avatarUrl);
+//        }
+//        return null;
 //    }
 }

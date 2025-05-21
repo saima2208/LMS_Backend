@@ -24,10 +24,11 @@ public record UserUpdateRequest(
 			    String name,
 			    String fatherName,
 			    String motherName,
-			    String address,
+			   
 			    String phone,
 			    String gender,
 			    String nationality,
+			    String address,
 			    String avatarUrl
 			
 

@@ -1,5 +1,7 @@
 package org.saima.LMS.dto;
 
+import org.saima.LMS.constants.Role;
+
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
@@ -7,9 +9,18 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class UserResponseDto {
 
-    private String name;
+
+    private Long id;
     private String email;
+    private Role role;
+    private String name;
+    private String fatherName;
+    private String motherName;
+  
     private String phone;
-    private Integer creditBalance;
+//    private String gender;
+//    private String nationality;
+    private String address;
+    private String avatarUrl;
 
 }
