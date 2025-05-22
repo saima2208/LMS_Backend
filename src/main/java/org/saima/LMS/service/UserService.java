@@ -125,6 +125,9 @@ public class UserService {
 
         userRepository.save(user);
     }
+    
+    
+    
 
     public UserDetails loadUserByUsername(String username) {
         Optional<User> byEmail = userRepository.findByEmail(username);

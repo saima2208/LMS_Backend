@@ -5,8 +5,7 @@ import java.util.stream.Collectors;
 
 import org.saima.LMS.annotation.CurrentUser;
 import org.saima.LMS.constants.Role;
-import org.saima.LMS.dto.PasswordChangeRequest;
-
+import org.saima.LMS.dto.PasswordChangeRequestDto;
 import org.saima.LMS.dto.UserCreateRequest;
 import org.saima.LMS.dto.UserResponse;
 import org.saima.LMS.dto.UserUpdateRequest;
@@ -174,32 +173,32 @@ public class UserController {
 	
 	
 
-	@PostMapping("/change-password")
-	public ResponseEntity<?> changePassword(Authentication authentication,
-			@Valid @RequestBody PasswordChangeRequest request) {
-		try {
-			User currentUser = userService.getCurrentUser(authentication);
-			if (currentUser == null) {
-				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-			}
-
-			userService.changePassword(currentUser.getId(), request.currentPassword(), request.newPassword());
-
-			return ResponseEntity.ok().build();
-		} catch (RuntimeException e) {
-			return ResponseEntity.badRequest().body(e.getMessage());
-		}
-	}
-	
-//    @PutMapping("/change-password")
-//    public ResponseEntity<?> changePassword(@RequestBody PasswordChangeRequestDto request) {
-//        if (request.getCurrentPassword() == null || request.getNewPassword() == null) {
-//            return ResponseEntity.badRequest().body("Password fields cannot be null");
-//        }
+//	@PostMapping("/change-password")
+//	public ResponseEntity<?> changePassword(Authentication authentication,
+//			@Valid @RequestBody PasswordChangeRequest request) {
+//		try {
+//			User currentUser = userService.getCurrentUser(authentication);
+//			if (currentUser == null) {
+//				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+//			}
 //
-//        userInfoDetailsService.changePassword(request.getUserId(), request.getCurrentPassword(), request.getNewPassword());
-//        return ResponseEntity.ok("Password changed successfully");
-//    }
+//			userService.changePassword(currentUser.getId(), request.currentPassword(), request.newPassword());
+//
+//			return ResponseEntity.ok().build();
+//		} catch (RuntimeException e) {
+//			return ResponseEntity.badRequest().body(e.getMessage());
+//		}
+//	}
+	
+    @PutMapping("/change-password")
+    public ResponseEntity<?> changePassword(@RequestBody PasswordChangeRequestDto request) {
+        if (request.getCurrentPassword() == null || request.getNewPassword() == null) {
+            return ResponseEntity.badRequest().body("Password fields cannot be null");
+        }
+
+        userService.changePassword(request.getUserId(), request.getCurrentPassword(), request.getNewPassword());
+        return ResponseEntity.ok("Password changed successfully");
+    }
 	
 	
 
