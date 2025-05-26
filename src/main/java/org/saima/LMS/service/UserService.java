@@ -5,6 +5,7 @@ package org.saima.LMS.service;
 import jakarta.transaction.Transactional;
 
 import org.saima.LMS.constants.Role;
+import org.saima.LMS.model.Course;
 import org.saima.LMS.model.CustomUserDetails;
 import org.saima.LMS.model.User;
 import org.saima.LMS.model.UserInfoDetails;
@@ -30,6 +31,10 @@ public class UserService {
     public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+    }
+    
+    public List<Course> getCoursesByUserId(Long userId) {
+        return userRepository.findCoursesByUserId(userId);
     }
 
     public List<User> getAllUsers() {

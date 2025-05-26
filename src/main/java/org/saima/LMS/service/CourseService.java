@@ -56,9 +56,9 @@ public class CourseService {
 		return courseRepository.findById(id);
 	}
 	
-//	public Optional<Course> getCourseByName(String CourseName) {
-//		return courseRepository.findByName("");
-//	}
+	public Optional<Course> getCourseByName(String CourseName) {
+		return courseRepository.findByCourseName("");
+	}
 
 
 	public Course updateCourse(Long id, CourseDTO courseDTO) {

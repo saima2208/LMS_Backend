@@ -38,12 +38,6 @@ public class CourseController {
                 .orElse(ResponseEntity.notFound().build());
     }
     
-//    @GetMapping("/user/{userId}")
-//    public ResponseEntity<List<Course>> getCoursesByUserId(@PathVariable Long userId) {
-//        List<Course> courses = courseService.getCoursesByUserId(userId); // Assuming service provides user-specific courses
-//        return ResponseEntity.ok(courses);
-//    }
-    
     
     
     @PutMapping("/{id}")

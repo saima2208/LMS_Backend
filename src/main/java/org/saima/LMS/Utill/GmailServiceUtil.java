@@ -1,4 +1,4 @@
-package org.saima.LMS.Utill;
+package org.saima.LMS.utill;
 
 
 import java.io.FileNotFoundException;

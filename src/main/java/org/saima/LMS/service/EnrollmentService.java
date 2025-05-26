@@ -38,6 +38,9 @@ public class EnrollmentService {
 	@Autowired
 	private CourseRepository courseRepository;
 
+	@Autowired
+	private EmailService emailService;
+
 	private EnrollmentDTO mapToDTO(Enrollment enrollment) {
 		return new EnrollmentDTO(enrollment.getId(), enrollment.getCourse().getCourseName(), enrollment.getName(),
 				enrollment.getEmail(), enrollment.getPhone(), enrollment.getEnrollmentDate(),
@@ -72,15 +75,18 @@ public class EnrollmentService {
 				.orElseThrow(() -> new EntityNotFoundException("Enrollment not found with ID: " + id));
 
 		try {
-			EnrollmentStatus newStatus = EnrollmentStatus.valueOf(status.toUpperCase());
-			enrollment.setStatus(newStatus);
+			Course course = enrollment.getCourse();
+
+			EnrollmentStatus upperCaseStatus = EnrollmentStatus.valueOf(status.toUpperCase());
+			enrollment.setStatus(upperCaseStatus);
 			enrollmentRepository.save(enrollment);
 
-			if (EnrollmentStatus.APPROVED.equals(newStatus)) {
+			if (EnrollmentStatus.APPROVED.equals(upperCaseStatus)) {
 				Optional<User> byEmail = userRepository.findByEmail(enrollment.getEmail());
+				User user;
 				if (byEmail.isEmpty()) {
-					User user = new User();
-
+					// Create a new user
+					user = new User();
 					user.setName(enrollment.getName());
 					user.setEmail(enrollment.getEmail());
 					user.setPhone(enrollment.getPhone());
@@ -92,9 +98,26 @@ public class EnrollmentService {
 
 					user.setPassword(encodedPassword);
 
+					// Save the user
 					userRepository.save(user);
-					// TODO: after user is saved send mail to users email with password for login
+					try {
+						emailService.sendEmail(user.getEmail(), "User account password",
+								"Your password is " + rawPassword);
+					} catch (Exception e) {
+						log.error("Error sending email {}", e.getMessage());
+					}
+				} else {
+					// Fetch the existing user
+					user = byEmail.get();
 				}
+
+				// Establish the many-to-many relationship
+				user.getCourses().add(course);
+				course.getUsers().add(user);
+
+				// Save both entities to persist the relationship
+				userRepository.save(user);
+				courseRepository.save(course);
 			}
 
 			return mapToDTO(enrollment);

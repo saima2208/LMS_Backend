@@ -1,15 +1,19 @@
 package org.saima.LMS.model;
 
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToMany;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -32,9 +36,6 @@ public class Course {
 	@JoinColumn(name = "teacher_id")
 	private User teacher;
 
-//	@OneToMany(mappedBy = "course")
-//	private List<Lesson> lessons;
-
 	@Column(nullable = false, length = 200, unique = true)
 	private String courseName;
 
@@ -50,10 +51,13 @@ public class Course {
 	@Column(length = 500)
 	private String image;
 
-	public Course(User teacher, String courseName, String price, LocalDate startDate, String duration, String description,
-			String image) {
+	@JsonIgnore
+	@ManyToMany(mappedBy = "courses", fetch = FetchType.LAZY)
+	private Set<User> users = new HashSet<>();
+
+	public Course(User teacher, String courseName, String price, LocalDate startDate, String duration,
+			String description, String image) {
 		this.teacher = teacher;
-//		this.lessons = lessons;
 		this.courseName = courseName;
 		this.price = price;
 		this.startDate = startDate;

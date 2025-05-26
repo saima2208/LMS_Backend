@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.security.GeneralSecurityException;
 import java.util.Properties;
 
-import org.saima.LMS.Utill.GmailServiceUtil;
+import org.saima.LMS.utill.GmailServiceUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

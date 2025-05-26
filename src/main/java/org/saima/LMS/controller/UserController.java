@@ -5,10 +5,12 @@ import java.util.stream.Collectors;
 
 import org.saima.LMS.annotation.CurrentUser;
 import org.saima.LMS.constants.Role;
+import org.saima.LMS.dto.CourseDTO;
 import org.saima.LMS.dto.PasswordChangeRequestDto;
 import org.saima.LMS.dto.UserCreateRequest;
 import org.saima.LMS.dto.UserResponse;
 import org.saima.LMS.dto.UserUpdateRequest;
+import org.saima.LMS.model.Course;
 import org.saima.LMS.model.User;
 
 import org.saima.LMS.service.UserService;
@@ -46,6 +48,26 @@ public class UserController {
 	public UserController(UserService userService) {
 		this.userService = userService;
 	}
+	
+	   @GetMapping("/{userId}/courses")
+	    public ResponseEntity<List<CourseDTO>> getCoursesByUserId(@PathVariable Long userId) {
+	        List<Course> courses = userService.getCoursesByUserId(userId);
+	        List<CourseDTO> courseDTOs = courses.stream().map(this::convertToDTO).toList();
+	        return ResponseEntity.ok(courseDTOs);
+	    }
+	   
+	    private CourseDTO convertToDTO(Course course) {
+	        return new CourseDTO(
+	            course.getTeacher() != null ? course.getTeacher().getId() : null,
+	            course.getCourseName(),
+	            course.getPrice(),
+	            course.getStartDate(),
+	            course.getDuration(),
+	            course.getDescription(),
+	            course.getImage()
+	        );
+	    }
+	
 
 	@GetMapping("/user")
 	public UserDetails user(@CurrentUser UserDetails currentUser) {
@@ -197,7 +219,7 @@ public class UserController {
         }
 
         userService.changePassword(request.getUserId(), request.getCurrentPassword(), request.getNewPassword());
-        return ResponseEntity.ok("Password changed successfully");
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 	
 	
