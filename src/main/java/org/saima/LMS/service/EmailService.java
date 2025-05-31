@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.security.GeneralSecurityException;
 import java.util.Properties;
 
-import org.saima.LMS.utill.GmailServiceUtil;
+import org.saima.LMS.utils.GmailUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,12 +23,12 @@ import jakarta.mail.internet.MimeMessage;
 public class EmailService {
 
 	@Autowired
-	private GmailServiceUtil gmailServiceUtil;
+	private GmailUtil gmailUtil;
 
 	public void sendEmail(String to, String subject, String bodyText)
 			throws MessagingException, IOException, GeneralSecurityException {
 		// Get Gmail service
-		Gmail service = gmailServiceUtil.getGmailService();
+		Gmail service = gmailUtil.getGmailService();
 
 		// Create email content
 		Properties props = new Properties();
@@ -50,6 +50,6 @@ public class EmailService {
 		message.setRaw(encodedEmail);
 
 		// Send the message
-		service.users().messages().send("me", message).execute();
+//		service.users().messages().send("me", message).execute();
 	}
 }

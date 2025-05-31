@@ -39,10 +39,12 @@ public class SecurityConfig {
 	public SecurityFilterChain securityFilterChain(HttpSecurity http, JwtTokenProvider jwtTokenProvider)
 			throws Exception {
 		http.cors(Customizer.withDefaults()).csrf(AbstractHttpConfigurer::disable)
-				.authorizeHttpRequests(auth -> auth.requestMatchers("/api/**").permitAll()
-					.requestMatchers("/api/courses**").hasRole("ADMIN")
-					.requestMatchers("/api/feedbacks**").hasRole("STUDENT")
-					.requestMatchers("/api/users/change-password/**").hasAnyRole("STUDENT", "TEACHER", "ADMIN")
+				.authorizeHttpRequests(
+						auth -> auth.requestMatchers("/api/users/**").permitAll().requestMatchers("/api/courses**")
+								.hasRole("ADMIN").requestMatchers("/api/feedbacks**").hasRole("STUDENT")
+//					.requestMatchers("/api/users/change-password/**").hasAnyRole("STUDENT", "TEACHER", "ADMIN")
+//					.requestMatchers("/api/users/{userId}/myCourses/**").permitAll()
+								.requestMatchers("/api/auth/login").permitAll()
 				/*
 				 * .requestMatchers("/api/users/**").permitAll().requestMatchers(
 				 * "/api/courses/**").permitAll()

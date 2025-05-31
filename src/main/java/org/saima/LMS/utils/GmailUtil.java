@@ -1,5 +1,4 @@
-package org.saima.LMS.utill;
-
+package org.saima.LMS.utils;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -25,13 +24,13 @@ import com.google.api.services.gmail.Gmail;
 import com.google.api.services.gmail.GmailScopes;
 
 @Component
-public class GmailServiceUtil {
+public class GmailUtil {
 
 	private static final String APPLICATION_NAME = "Spring Boot Gmail API";
 	private static final JsonFactory JSON_FACTORY = GsonFactory.getDefaultInstance();
 	private static final String TOKENS_DIRECTORY_PATH = "tokens";
 	private static final List<String> SCOPES = Collections.singletonList(GmailScopes.GMAIL_SEND);
-	private static final String CREDENTIALS_FILE_PATH = "/credentials.json";
+	private static final String CREDENTIALS_FILE_PATH = "/credentialAr.json";
 
 	public Gmail getGmailService() throws IOException, GeneralSecurityException {
 		final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
@@ -41,7 +40,7 @@ public class GmailServiceUtil {
 
 	private Credential getCredentials(final NetHttpTransport HTTP_TRANSPORT) throws IOException {
 		// Load client secrets.
-		InputStream in = GmailServiceUtil.class.getResourceAsStream(CREDENTIALS_FILE_PATH);
+		InputStream in = GmailUtil.class.getResourceAsStream(CREDENTIALS_FILE_PATH);
 		if (in == null) {
 			throw new FileNotFoundException("Resource not found: " + CREDENTIALS_FILE_PATH);
 		}

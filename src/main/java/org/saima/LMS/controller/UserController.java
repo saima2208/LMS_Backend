@@ -41,33 +41,26 @@ import jakarta.validation.Valid;
 public class UserController {
 
 	private final UserService userService;
-	
+
 //	 private final UserInfoDetailsService userInfoDetailsService;
 
 	@Autowired
 	public UserController(UserService userService) {
 		this.userService = userService;
 	}
-	
-	   @GetMapping("/{userId}/courses")
-	    public ResponseEntity<List<CourseDTO>> getCoursesByUserId(@PathVariable Long userId) {
-	        List<Course> courses = userService.getCoursesByUserId(userId);
-	        List<CourseDTO> courseDTOs = courses.stream().map(this::convertToDTO).toList();
-	        return ResponseEntity.ok(courseDTOs);
-	    }
-	   
-	    private CourseDTO convertToDTO(Course course) {
-	        return new CourseDTO(
-	            course.getTeacher() != null ? course.getTeacher().getId() : null,
-	            course.getCourseName(),
-	            course.getPrice(),
-	            course.getStartDate(),
-	            course.getDuration(),
-	            course.getDescription(),
-	            course.getImage()
-	        );
-	    }
-	
+
+	@GetMapping("/{userId}/courses")
+	public ResponseEntity<List<CourseDTO>> getCoursesByUserId(@PathVariable Long userId) {
+		List<Course> courses = userService.getCoursesByUserId(userId);
+		List<CourseDTO> courseDTOs = courses.stream().map(this::convertToDTO).toList();
+		return ResponseEntity.ok(courseDTOs);
+	}
+
+	private CourseDTO convertToDTO(Course course) {
+		return new CourseDTO(course.getTeacher() != null ? course.getTeacher().getId() : null, course.getCourseName(),
+				course.getPrice(), course.getStartDate(), course.getDuration(), course.getDescription(),
+				course.getImage());
+	}
 
 	@GetMapping("/user")
 	public UserDetails user(@CurrentUser UserDetails currentUser) {
@@ -95,15 +88,9 @@ public class UserController {
 	@PostMapping
 	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<UserResponse> createUser(@Valid @RequestBody UserCreateRequest userCreateRequest) {
-		User user = new User(userCreateRequest.email(),
-				userCreateRequest.password(),
-				userCreateRequest.role(),
-				userCreateRequest.name(),
-				userCreateRequest.fatherName(),
-				userCreateRequest.motherName(),
-				userCreateRequest.phone(), 
-				userCreateRequest.address(),
-				userCreateRequest.avatarUrl()
+		User user = new User(userCreateRequest.email(), userCreateRequest.password(), userCreateRequest.role(),
+				userCreateRequest.name(), userCreateRequest.fatherName(), userCreateRequest.motherName(),
+				userCreateRequest.phone(), userCreateRequest.address(), userCreateRequest.avatarUrl()
 
 		);
 
@@ -138,7 +125,7 @@ public class UserController {
 			return ResponseEntity.badRequest().build();
 		}
 	}
-	
+
 //	  @PutMapping("/{id}")
 //	    public ResponseEntity<User> updateUserProfile(
 //	            @PathVariable Long id,
@@ -154,24 +141,24 @@ public class UserController {
 //	            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
 //	        }
 //	    }
-	
-	 @PutMapping
-	    public ResponseEntity<?> updateUserByEmail(@RequestBody User userDTO) {
-	        if (userDTO.getEmail() == null || userDTO.getEmail().isEmpty()) {
-	            return ResponseEntity.badRequest().body("Email is required to update user.");
-	        }
 
-	        try {
-	            User updatedUser = userService.updateUserByEmail(userDTO.getEmail(), userDTO);
-	            if (updatedUser == null) {
-	                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found with this email.");
-	            }
-	            return ResponseEntity.ok(updatedUser);
-	        } catch (Exception e) {
-	            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-	                    .body("Failed to update user: " + e.getMessage());
-	        }
-	    }
+	@PutMapping
+	public ResponseEntity<?> updateUserByEmail(@RequestBody User userDTO) {
+		if (userDTO.getEmail() == null || userDTO.getEmail().isEmpty()) {
+			return ResponseEntity.badRequest().body("Email is required to update user.");
+		}
+
+		try {
+			User updatedUser = userService.updateUserByEmail(userDTO.getEmail(), userDTO);
+			if (updatedUser == null) {
+				return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found with this email.");
+			}
+			return ResponseEntity.ok(updatedUser);
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+					.body("Failed to update user: " + e.getMessage());
+		}
+	}
 
 	@DeleteMapping("/{id}")
 	@PreAuthorize("hasRole('ADMIN')")
@@ -192,8 +179,6 @@ public class UserController {
 		}
 		return ResponseEntity.ok(convertToDTO(currentUser));
 	}
-	
-	
 
 //	@PostMapping("/change-password")
 //	public ResponseEntity<?> changePassword(Authentication authentication,
@@ -211,18 +196,16 @@ public class UserController {
 //			return ResponseEntity.badRequest().body(e.getMessage());
 //		}
 //	}
-	
-    @PutMapping("/change-password")
-    public ResponseEntity<?> changePassword(@RequestBody PasswordChangeRequestDto request) {
-        if (request.getCurrentPassword() == null || request.getNewPassword() == null) {
-            return ResponseEntity.badRequest().body("Password fields cannot be null");
-        }
 
-        userService.changePassword(request.getUserId(), request.getCurrentPassword(), request.getNewPassword());
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
-	
-	
+	@PutMapping("/change-password")
+	public ResponseEntity<?> changePassword(@RequestBody PasswordChangeRequestDto request) {
+		if (request.getCurrentPassword() == null || request.getNewPassword() == null) {
+			return ResponseEntity.badRequest().body("Password fields cannot be null");
+		}
+
+		userService.changePassword(request.getUserId(), request.getCurrentPassword(), request.getNewPassword());
+		return new ResponseEntity<>(HttpStatus.OK);
+	}
 
 	// Helper method to convert User entity to UserDTO
 	private UserResponse convertToDTO(User user) {

@@ -4,6 +4,7 @@ import java.time.LocalDate;
 
 import org.saima.LMS.dto.SubmitAssignmentDTO;
 import org.saima.LMS.service.AssignmentSubmissionService;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,7 +22,7 @@ public class AssignmentSubmissionController {
         this.submissionService = submissionService;
     }
 
-    @PostMapping("/submit")
+    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<String> submitAssignment(
             @RequestParam("file") MultipartFile file,
             @RequestParam("studentId") Long studentId,
@@ -32,4 +33,33 @@ public class AssignmentSubmissionController {
         submissionService.submitAssignment(dto, file);
         return ResponseEntity.ok("Assignment submitted successfully!");
     }
+    
+//    @PostMapping
+//    public Employee saveEmp(@RequestBody Employee employee) {
+//        return service.saveEmployee(employee);
+//    }
+//
+//    @PostMapping("/{employeeId}/upload")
+//    public ResponseEntity<?> uploadFile(@PathVariable Integer employeeId,
+//                                        @RequestParam("file") MultipartFile file) {
+//        try {
+//            String savedFileName = storageService.storeFile(file);
+//
+//            String accessUrl = ServletUriComponentsBuilder
+//                    .fromCurrentContextPath()
+//                    .path("/imageurl/")
+//                    .path(savedFileName)
+//                    .toUriString();
+//
+//            Employee empById = service.getEmpById(employeeId);
+//            empById.setImage(accessUrl);
+//
+//            service.updateEmp(employeeId, empById);
+//
+//            return ResponseEntity.ok(Map.of("message", "File uploaded", "url", accessUrl));
+//        } catch (Exception e) {
+//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+//                    .body(Map.of("error", e.getMessage()));
+//        }
+//    }
 }
