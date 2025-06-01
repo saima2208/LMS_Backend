@@ -1,6 +1,6 @@
 package org.saima.LMS.dto;
 
-import java.time.LocalDate;
+import org.springframework.web.multipart.MultipartFile;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -21,6 +21,7 @@ public class SubmitAssignmentDTO {
     @NotNull(message = "assginment id cannot be null")
     private Long assginmentId;
 
-  
-    LocalDate submitDate;
+  private MultipartFile file;
+    
+    
 }

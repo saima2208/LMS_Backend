@@ -56,6 +56,10 @@ public class CourseService {
 		return courseRepository.findById(id);
 	}
 	
+	  public List<Course> getCoursesByTeacher(User teacher) {
+	        return courseRepository.findCourseByTeacher(teacher);
+	    }
+	
 	public Optional<Course> getCourseByName(String CourseName) {
 		return courseRepository.findByCourseName("");
 	}

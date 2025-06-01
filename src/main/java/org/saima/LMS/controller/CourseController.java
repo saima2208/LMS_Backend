@@ -5,6 +5,7 @@ import java.util.List;
 import org.saima.LMS.dto.CourseDTO;
 import org.saima.LMS.handler.EntityNotFoundException;
 import org.saima.LMS.model.Course;
+import org.saima.LMS.model.User;
 import org.saima.LMS.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -36,6 +37,19 @@ public class CourseController {
         return courseService.getCourseById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
+    }
+    
+    @GetMapping("/teacher/{teacherId}")
+    public ResponseEntity<List<Course>> getCoursesByTeacher(@PathVariable Long teacherId) {
+        // Mock retrieval of teacher - in a real app, fetch the teacher from a service or repo
+        User teacher = new User();
+        teacher.setId(teacherId);
+
+        List<Course> courses = courseService.getCoursesByTeacher(teacher);
+        if (courses.isEmpty()) {
+            return ResponseEntity.noContent().build(); // 204 No Content
+        }
+        return ResponseEntity.ok(courses); // 200 OK with course list
     }
     
     
