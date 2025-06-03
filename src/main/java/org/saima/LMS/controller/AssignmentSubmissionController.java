@@ -19,8 +19,6 @@ public class AssignmentSubmissionController {
     public AssignmentSubmissionController(AssignmentSubmissionService submissionService) {
         this.submissionService = submissionService;
     }
-
-  
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<String> submitAssignment(
             @RequestParam Long studentId,
@@ -37,7 +35,6 @@ public class AssignmentSubmissionController {
         return ResponseEntity.ok("Assignment submitted successfully.");
     }
 
-    
     @GetMapping("/{id}/submit")
     public ResponseEntity<Resource> getSubmittedAssignment(@PathVariable Long id) {
         Resource file = submissionService.getAssignmentFile(id);
