@@ -56,7 +56,8 @@ public class AuthController {
                     registerRequest.motherName(),
                     registerRequest.phone(),
                     registerRequest.address(),
-                    registerRequest.avatarUrl()
+                    registerRequest.avatarUrl(),
+                    registerRequest.bio()
                     
             );
 

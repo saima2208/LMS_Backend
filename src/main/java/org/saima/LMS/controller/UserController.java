@@ -90,7 +90,7 @@ public class UserController {
 	public ResponseEntity<UserResponse> createUser(@Valid @RequestBody UserCreateRequest userCreateRequest) {
 		User user = new User(userCreateRequest.email(), userCreateRequest.password(), userCreateRequest.role(),
 				userCreateRequest.name(), userCreateRequest.fatherName(), userCreateRequest.motherName(),
-				userCreateRequest.phone(), userCreateRequest.address(), userCreateRequest.avatarUrl()
+				userCreateRequest.phone(), userCreateRequest.address(), userCreateRequest.avatarUrl(),userCreateRequest.bio()
 
 		);
 
@@ -112,6 +112,7 @@ public class UserController {
 			userDetails.setPhone(userUpdateRequest.phone());
 			userDetails.setAddress(userUpdateRequest.address());
 			userDetails.setAvatarUrl(userUpdateRequest.avatarUrl());
+			userDetails.setBio(userUpdateRequest.bio());
 
 			// Only admin can update roles
 			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -219,6 +220,7 @@ public class UserController {
 		dto.setPhone(user.getPhone());
 		dto.setAddress(user.getAddress());
 		dto.setAvatarUrl(user.getAvatarUrl());
+		dto.setBio(user.getBio());
 
 		return dto;
 	}

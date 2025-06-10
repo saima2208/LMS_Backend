@@ -51,6 +51,7 @@ public class User {
 	private String phone;
 	private String address;
 	private String avatarUrl;
+	private String bio;
 
 	@ManyToMany
 	@JoinTable(name = "map_user_courses",
@@ -60,7 +61,7 @@ public class User {
 	private Set<Course> courses = new HashSet<>();
 
 	public User(String email, String password, Role role, String name, String fatherName, String motherName,
-			String phone, String address, String avatarUrl) {
+			String phone, String address, String avatarUrl,String bio) {
 		this.email = email;
 		this.password = password;
 		this.role = role;
@@ -70,6 +71,7 @@ public class User {
 		this.phone = phone;
 		this.address = address;
 		this.avatarUrl = avatarUrl;
+		this.bio = bio;
 	}
 
 //    public String getAvatarUrl() {

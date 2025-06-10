@@ -35,6 +35,7 @@ public class UserResponse {
 //	    private String nationality;
 	    private String address;
 	    private String avatarUrl;
+	    private String bio;
 
 	    // Getters and Setters
 	

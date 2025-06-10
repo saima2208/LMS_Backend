@@ -33,9 +33,5 @@ public class CourseDTO {
 	private String description;
 	
 	private String image;
-	
-
-
-
 
 }

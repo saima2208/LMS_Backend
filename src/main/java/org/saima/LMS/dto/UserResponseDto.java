@@ -22,5 +22,6 @@ public class UserResponseDto {
 //    private String nationality;
     private String address;
     private String avatarUrl;
+    private String bio;
 
 }

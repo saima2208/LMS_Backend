@@ -29,7 +29,8 @@ public record UserUpdateRequest(
 			    String gender,
 			    String nationality,
 			    String address,
-			    String avatarUrl
+			    String avatarUrl,
+			    String bio
 			
 
         

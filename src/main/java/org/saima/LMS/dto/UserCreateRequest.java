@@ -32,7 +32,8 @@ public record UserCreateRequest(
         String avatarUrl,
         String address,
       
-        String nationality
+        String nationality,
+        String bio
       
 ) {
 }
