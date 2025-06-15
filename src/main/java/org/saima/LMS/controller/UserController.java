@@ -12,7 +12,6 @@ import org.saima.LMS.dto.UserResponse;
 import org.saima.LMS.dto.UserUpdateRequest;
 import org.saima.LMS.model.Course;
 import org.saima.LMS.model.User;
-
 import org.saima.LMS.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -31,7 +30,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
 
 import jakarta.validation.Valid;
 
@@ -90,7 +88,8 @@ public class UserController {
 	public ResponseEntity<UserResponse> createUser(@Valid @RequestBody UserCreateRequest userCreateRequest) {
 		User user = new User(userCreateRequest.email(), userCreateRequest.password(), userCreateRequest.role(),
 				userCreateRequest.name(), userCreateRequest.fatherName(), userCreateRequest.motherName(),
-				userCreateRequest.phone(), userCreateRequest.address(), userCreateRequest.avatarUrl(),userCreateRequest.bio()
+				userCreateRequest.phone(), userCreateRequest.address(), userCreateRequest.avatarUrl(),
+				userCreateRequest.bio()
 
 		);
 
@@ -221,6 +220,7 @@ public class UserController {
 		dto.setAddress(user.getAddress());
 		dto.setAvatarUrl(user.getAvatarUrl());
 		dto.setBio(user.getBio());
+//		dto.setCourseName(user.getCourses());
 
 		return dto;
 	}
