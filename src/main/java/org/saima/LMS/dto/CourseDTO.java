@@ -2,10 +2,7 @@ package org.saima.LMS.dto;
 
 import java.time.LocalDate;
 
-import org.saima.LMS.annotation.UniqueCourseName;
-
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -31,7 +28,7 @@ public class CourseDTO {
 	private LocalDate startDate;
 	private String duration;
 	private String description;
-	
+
 	private String image;
 
 }
