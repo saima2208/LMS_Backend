@@ -64,5 +64,8 @@ public class EnrollmentController {
 	public ResponseEntity<Void> deleteEnrollment(@PathVariable Long id) {
 		enrollmentService.deleteEnrollment(id);
 		return ResponseEntity.noContent().build();
+
+
+
 	}
 }
