@@ -30,7 +30,7 @@ public class GmailUtil {
 	private static final JsonFactory JSON_FACTORY = GsonFactory.getDefaultInstance();
 	private static final String TOKENS_DIRECTORY_PATH = "tokens";
 	private static final List<String> SCOPES = Collections.singletonList(GmailScopes.GMAIL_SEND);
-	private static final String CREDENTIALS_FILE_PATH = "/credentialAr.json";
+	private static final String CREDENTIALS_FILE_PATH = "/credentials.json";
 
 	public Gmail getGmailService() throws IOException, GeneralSecurityException {
 		final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();

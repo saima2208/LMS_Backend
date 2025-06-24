@@ -7,5 +7,5 @@ import org.saima.LMS.model.Assignment;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface AssignmentRepository extends JpaRepository<Assignment, Long>{
-    List<Assignment> findByCourse(Assignment assignment);
+    List<Assignment> findByCourseId(Long courseId);
 }

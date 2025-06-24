@@ -38,6 +38,10 @@ public class AssignmentService {
 	    public Optional<Assignment> getAssignmentById(Long id) {
 	        return assignmentRepository.findById(id);
 	    }
+	    
+	    public List<Assignment>getAssignmentByCourseId(Long courseId) {
+	    	return assignmentRepository.findByCourseId(courseId);
+	    }
 
 	    public void deleteAssignment(Long id) {
 	    	assignmentRepository.deleteById(id);

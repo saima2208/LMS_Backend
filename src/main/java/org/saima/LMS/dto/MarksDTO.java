@@ -10,11 +10,12 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class MarksDTO {
-	
-private Long courseId;
+private Long courseId;	
+//private String courseName;
 private Long assignmentId;
 private Long studentId;
 private String StudentName;
 private Integer marks;
+private Integer totalMarks;
 
 }

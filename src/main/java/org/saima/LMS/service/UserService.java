@@ -48,6 +48,10 @@ public class UserService {
     public List<User> getUsersByRole(Role role) {
         return userRepository.findByRole(role);
     }
+    
+//    public List<User> getUsersByCourseId(Long courseId) {
+//    	return userRepository.findUserByCourseId(courseId);
+//    }
 
     @Transactional
     public User createUser(User user) {

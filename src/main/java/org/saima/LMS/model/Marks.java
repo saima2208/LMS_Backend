@@ -32,15 +32,21 @@ public class Marks {
     
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY) // Many Marks can belong to one Student
-    @JoinColumn(name = "student_id", nullable = false) // Foreign key to User (student)
+//    @JoinColumn(name = "student_id", nullable = false) // Foreign key to User (student)
+    @JoinColumns({
+        @JoinColumn(name = "student_id", referencedColumnName = "id", nullable = false),
+        @JoinColumn(name = "student_name", referencedColumnName = "name", nullable = false)
+    })
     private User student;
 
     private Integer marks;
+    private Integer totalMarks;
 
-    public Marks(Course course, Assignment assignment,User student, Integer marks) {
+    public Marks(Course course, Assignment assignment,User student, Integer marks,Integer totalMarks) {
         this.course = course;
         this.assignment = assignment;
         this.student = student;
         this.marks = marks;
+        this.totalMarks = totalMarks;
     }
 }

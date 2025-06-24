@@ -126,21 +126,6 @@ public class UserController {
 		}
 	}
 
-//	  @PutMapping("/{id}")
-//	    public ResponseEntity<User> updateUserProfile(
-//	            @PathVariable Long id,
-//	            @RequestParam("name") String name,
-//	            @RequestParam("phone") String phone,
-//	            @RequestParam("address") String address,
-//	            @RequestParam(value = "avatarUrl", required = false) MultipartFile avatarUrl) {
-//
-//	        try {
-//	            User updatedUser = userService.updateUserProfile(id, name, phone, address, avatarUrl);
-//	            return ResponseEntity.ok(updatedUser);
-//	        } catch (Exception e) {
-//	            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
-//	        }
-//	    }
 
 	@PutMapping
 	public ResponseEntity<?> updateUserByEmail(@RequestBody User userDTO) {
@@ -180,22 +165,7 @@ public class UserController {
 		return ResponseEntity.ok(convertToDTO(currentUser));
 	}
 
-//	@PostMapping("/change-password")
-//	public ResponseEntity<?> changePassword(Authentication authentication,
-//			@Valid @RequestBody PasswordChangeRequest request) {
-//		try {
-//			User currentUser = userService.getCurrentUser(authentication);
-//			if (currentUser == null) {
-//				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-//			}
-//
-//			userService.changePassword(currentUser.getId(), request.currentPassword(), request.newPassword());
-//
-//			return ResponseEntity.ok().build();
-//		} catch (RuntimeException e) {
-//			return ResponseEntity.badRequest().body(e.getMessage());
-//		}
-//	}
+
 
 	@PutMapping("/change-password")
 	public ResponseEntity<?> changePassword(@RequestBody PasswordChangeRequestDto request) {

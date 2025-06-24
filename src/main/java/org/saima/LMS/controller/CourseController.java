@@ -1,8 +1,10 @@
 package org.saima.LMS.controller;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.saima.LMS.dto.CourseDTO;
+import org.saima.LMS.dto.UserResponse;
 import org.saima.LMS.handler.EntityNotFoundException;
 import org.saima.LMS.model.Course;
 import org.saima.LMS.model.User;
@@ -37,6 +39,30 @@ public class CourseController {
         return courseService.getCourseById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
+    }
+    
+    @GetMapping("/users/{courseId}")
+    public ResponseEntity<List<UserResponse>> getUsersByCourseId(@PathVariable Long courseId) {
+    	 List<User> users = courseService.getUsersByCourseId(courseId);
+         List<UserResponse> userResponses = users.stream()
+                 .map(this::convertToDTO)
+                 .collect(Collectors.toList());
+         return ResponseEntity.ok(userResponses);
+    }
+    
+    private UserResponse convertToDTO(User user) {
+        UserResponse dto = new UserResponse();
+        dto.setId(user.getId());
+        dto.setEmail(user.getEmail());
+        dto.setRole(user.getRole());
+        dto.setName(user.getName());
+        dto.setFatherName(user.getFatherName());
+        dto.setMotherName(user.getMotherName());
+        dto.setPhone(user.getPhone());
+        dto.setAddress(user.getAddress());
+        dto.setAvatarUrl(user.getAvatarUrl());
+        dto.setBio(user.getBio());
+        return dto;
     }
     
     @GetMapping("/teacher/{teacherId}")

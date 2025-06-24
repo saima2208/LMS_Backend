@@ -46,6 +46,14 @@ public class AssignmentController {
 	                .map(ResponseEntity::ok)
 	                .orElse(ResponseEntity.notFound().build());
 	    }
+	    
+	    @GetMapping("/courses/{courseId}")
+	    public ResponseEntity<List<Assignment>> getAssignmentByCourseId(@PathVariable Long courseId) {
+	    	List<Assignment> assignment = assignmentService.getAssignmentByCourseId(courseId);
+	    	return ResponseEntity.ok(assignment);
+	    	
+	   
+	    }
 
 	    @DeleteMapping("/{id}")
 	    public ResponseEntity<Void> deleteAssignment(@PathVariable Long id) {

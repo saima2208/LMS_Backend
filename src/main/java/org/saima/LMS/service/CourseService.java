@@ -80,6 +80,10 @@ public class CourseService {
 
 		return courseRepository.save(existingCourse);
 	}
+	
+  public List<User> getUsersByCourseId(Long courseId) {
+	return courseRepository.findUsersByCourseId(courseId);
+}
 
 	public void deleteCourse(Long id) {
 		courseRepository.deleteById(id);
