@@ -21,6 +21,8 @@ public record UserInfoDetails (User user) implements UserDetails {
         return user.getPassword();
     }
 
+    
+
     @Override
     public String getUsername() {
         return user.getEmail();
