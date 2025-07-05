@@ -78,8 +78,11 @@
 package org.saima.LMS.model;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import org.saima.LMS.constants.EnrollmentStatus;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -120,7 +123,8 @@ public class Enrollment {
 	private String phone;
 
 	@Column(name = "enrollment_date", nullable = false)
-	private LocalDate enrollmentDate;
+
+	private LocalDate  enrollmentDate;
 
 	private String paymentMethod;
 
@@ -128,7 +132,7 @@ public class Enrollment {
 	@Column(nullable = false)
 	private EnrollmentStatus status;
 
-	public Enrollment(Course course, String name, String email, String phone, LocalDate enrollmentDate,
+	public Enrollment(Course course, String name, String email, String phone, LocalDate  enrollmentDate,
 			String paymentMethod, EnrollmentStatus status) {
 		this.course = course;
 		this.name = name;

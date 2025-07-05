@@ -1,7 +1,5 @@
 package org.saima.LMS.model;
 
-
-
 import java.time.LocalDateTime;
 import java.util.Optional;
 
@@ -29,46 +27,45 @@ import lombok.Setter;
 public class Feedback {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private  Long id;
-	
+	private Long id;
+
 	@ManyToOne
-    @JoinColumn(name = "student_id", nullable = false) // Foreign key in the feedback table
-    private User student;
-	
+	@JoinColumn(name = "student_id", nullable = false) // Foreign key in the feedback table
+	private User student;
+
 	private String content;
-	
-	  private Integer rating;
-	  
-    private LocalDateTime createdAt;
-	  
-    @Column(name = "updated_at")
-	 private LocalDateTime updatedAt;
 
-	
-	public Feedback(User student,String content,Integer rating) {
-		this.student=student;
-		this.content=content;
-		this. rating=rating;
-		
+	private Integer rating;
+
+	private LocalDateTime createdAt;
+
+	@Column(name = "updated_at")
+	private LocalDateTime updatedAt;
+
+	public Feedback(User student, String content, Integer rating) {
+		this.student = student;
+		this.content = content;
+		this.rating = rating;
+
 	}
-	
-  @PrePersist
-  protected void onCreate() {
-      createdAt = LocalDateTime.now();
-      updatedAt = LocalDateTime.now();
-  }
 
-  @PreUpdate
-  protected void onUpdate() {
-      updatedAt = LocalDateTime.now();
-  }
-  
-  // Generate star symbols based on the rating
-  public String getStars() {
-      if (rating == null || rating < 1) {
-          return "No rating";
-      }
-      return "★".repeat(Math.min(rating, 5)); // Limit to 5 stars max
-  }
+	@PrePersist
+	protected void onCreate() {
+		createdAt = LocalDateTime.now();
+		updatedAt = LocalDateTime.now();
+	}
+
+	@PreUpdate
+	protected void onUpdate() {
+		updatedAt = LocalDateTime.now();
+	}
+
+	// Generate star symbols based on the rating
+	public String getStars() {
+		if (rating == null || rating < 1) {
+			return "No rating";
+		}
+		return "★".repeat(Math.min(rating, 5)); // Limit to 5 stars max
+	}
 
 }

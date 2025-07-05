@@ -43,6 +43,7 @@
 package org.saima.LMS.dto;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import org.saima.LMS.constants.EnrollmentStatus;
 
@@ -70,7 +71,7 @@ public class EnrollmentDTO {
 
     private String phone;
 
-    private LocalDate enrollmentDate;
+    private LocalDate  enrollmentDate;
 
     private String paymentMethod;
 
