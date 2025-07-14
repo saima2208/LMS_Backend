@@ -46,4 +46,10 @@ public class RecordClassController {
 	        recordClassService.deleteRecordClass(id);
 	        return ResponseEntity.noContent().build();
 	    }
+	    
+	    @GetMapping("/course/{courseId}")
+	    public ResponseEntity<List<RecordClass>> getRecordClassesByCourseId(@PathVariable Long courseId) {
+	        return ResponseEntity.ok(recordClassService.getRecordClassesByCourseId(courseId));
+	    }
+
 }

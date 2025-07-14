@@ -46,4 +46,9 @@ public class RecordClassService {
 	    public void deleteRecordClass(Long id) {
 	        recordClassRepository.deleteById(id);
 	    }
+	    
+	    public List<RecordClass> getRecordClassesByCourseId(Long courseId) {
+	        return recordClassRepository.findByCourseId(courseId);
+	    }
+
 }
